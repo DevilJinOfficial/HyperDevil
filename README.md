@@ -1,5 +1,6 @@
 <div align="center">
   <h1>🔥 HyperDevil</h1>
+  <h2>Closed Source</h2>
   <p><strong>Advanced Windows Boot Configuration & Modding Utility</strong></p>
 
   <p>
