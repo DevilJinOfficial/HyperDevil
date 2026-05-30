@@ -878,15 +878,15 @@ h2 {
   margin-bottom: 20px;
   padding: 8px;
   border-radius: 999px;
-  background: rgba(255,255,255,0.02);
-  border: 1px solid var(--border-subtle);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.04), 0 8px 24px rgba(0,0,0,0.1);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.06), 0 8px 24px rgba(0,0,0,0.15);
 }
 
 .tab-pill {
-  padding: 6px 16px;
-  border: 1px solid var(--border-faint);
-  background: var(--bg-raised);
+  padding: 6px 18px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.04);
   color: var(--text-secondary);
   border-radius: 999px;
   font-size: 11.5px;
@@ -894,7 +894,7 @@ h2 {
   cursor: pointer;
   transition: all var(--dur-fast) var(--ease-out);
   font-family: inherit;
-  letter-spacing: 0.2px;
+  letter-spacing: 0.3px;
 }
 .tab-pill.active {
   background: linear-gradient(135deg, rgba(240,80,80,0.9), rgba(248,113,113,0.85));
@@ -902,7 +902,7 @@ h2 {
   border-color: rgba(240,80,80,0.25);
   box-shadow: 0 8px 24px rgba(240,80,80,0.15);
 }
-.tab-pill:hover:not(.active) { background: var(--bg-elevated); color: var(--text-primary); }
+.tab-pill:hover:not(.active) { background: rgba(255,255,255,0.08); color: #fff; }
 
 .guide-content { display: none; }
 .guide-content.active { display: block; }

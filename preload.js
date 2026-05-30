@@ -83,4 +83,6 @@ contextBridge.exposeInMainWorld('api', {
 
   // App update info
   getUpdateInfo: () => ipcRenderer.invoke('app:update-info'),
+  onExpired: (cb) => ipcRenderer.on('app:expired', (_, d) => cb(d)),
+  onUnexpired: (cb) => ipcRenderer.on('app:unexpired', () => cb()),
 })

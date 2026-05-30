@@ -2425,43 +2425,88 @@ async function initAppVersion() {
   try {
     const result = await window.api.getUpdateInfo()
     if (result.success && result.data) {
-      const { expired, serverTime } = result.data
+      const { expired, serverTime, expiryDate } = result.data
       if (expired) {
-        showForceExpiry(!serverTime)
+        showForceExpiry(!serverTime, expiryDate)
       }
     }
   } catch (_) {}
+
+  window.api.onExpired(({ localOnly, expiryDate }) => {
+    if (!document.getElementById('force-expiry-overlay')) showForceExpiry(localOnly, expiryDate)
+  })
+  window.api.onUnexpired(() => {
+    const overlay = document.getElementById('force-expiry-overlay')
+    if (overlay) {
+      if (overlay._observer) overlay._observer.disconnect()
+      document.removeEventListener('keydown', blockKeys, true)
+      document.removeEventListener('keyup', blockRefresh, true)
+      document.removeEventListener('contextmenu', blockEvent, true)
+      overlay.remove()
+    }
+  })
 }
 
-function showForceExpiry(localOnly) {
+function showForceExpiry(localOnly, expiryDate) {
+  const dateStr = expiryDate ? new Date(expiryDate).toISOString().split('T')[0] : 'an unknown date'
   const overlay = document.createElement('div')
   overlay.id = 'force-expiry-overlay'
   overlay.innerHTML = `
-    <div style="background:var(--bg-secondary);border:1px solid var(--border);border-radius:16px;padding:40px;max-width:420px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.6)">
-      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#ff6b6b" stroke-width="1.5" style="margin-bottom:16px">
-        <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
-      </svg>
-      <h2 style="margin:0 0 8px;font-size:20px;font-weight:700">HyperDevil Expired</h2>
-      <p style="margin:0 0 4px;color:var(--text-secondary);font-size:14px">This version expired on <strong>2026-08-30</strong>.</p>
-      <p style="margin:0 0 12px;color:var(--text-muted);font-size:13px">Please update to the latest version to continue.</p>
-      ${localOnly ? '<p style="margin:0 0 20px;color:var(--yellow);font-size:12px;font-weight:600">Server time unreachable — checked against device clock</p>' : '<p style="margin:0 0 20px;color:var(--green);font-size:12px;font-weight:600">Verified via server time</p>'}
-      <button onclick="window.api.close()" style="padding:10px 28px;background:linear-gradient(135deg,#6c5ce7,#5a4bd1);color:white;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer">Close App</button>
+    <div style="position:relative;background:linear-gradient(145deg,var(--bg-secondary),#0d0d14);border:1px solid rgba(240,80,80,0.15);border-radius:20px;padding:48px 44px 40px;max-width:440px;text-align:center;box-shadow:0 0 0 1px rgba(240,80,80,0.05),0 24px 80px rgba(0,0,0,0.7),0 0 80px rgba(240,80,80,0.06);overflow:hidden">
+      <div style="position:absolute;top:-60px;right:-60px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(240,80,80,0.12),transparent 70%);pointer-events:none"></div>
+      <div style="position:absolute;bottom:-80px;left:-80px;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,rgba(240,80,80,0.06),transparent 70%);pointer-events:none"></div>
+      <div style="position:relative;z-index:1">
+        <div style="display:inline-flex;align-items:center;justify-content:center;width:56px;height:56px;border-radius:16px;background:rgba(240,80,80,0.1);border:1px solid rgba(240,80,80,0.15);margin-bottom:20px">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#f05050" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+        </div>
+        <h2 style="margin:0 0 6px;font-size:22px;font-weight:800;color:var(--text-primary);letter-spacing:-0.3px">HyperDevil Expired</h2>
+        <p style="margin:0 0 20px;color:var(--text-tertiary);font-size:14px;line-height:1.5">This version expired on <strong style="color:var(--text-secondary);font-weight:700">${dateStr}</strong>.<br>Please update to the latest version.</p>
+        <div style="display:inline-flex;align-items:center;gap:8px;padding:6px 14px 6px 10px;border-radius:8px;background:${localOnly ? 'rgba(255,183,77,0.08)' : 'rgba(74,222,128,0.08)'};border:1px solid ${localOnly ? 'rgba(255,183,77,0.15)' : 'rgba(74,222,128,0.15)'};margin-bottom:24px">
+          <span style="width:6px;height:6px;border-radius:50%;background:${localOnly ? '#ffb74d' : '#4ade80'};box-shadow:0 0 6px ${localOnly ? 'rgba(255,183,77,0.4)' : 'rgba(74,222,128,0.4)'}"></span>
+          <span style="font-size:11.5px;font-weight:600;color:${localOnly ? '#ffb74d' : '#4ade80'}">${localOnly ? 'Device clock check — server unreachable' : 'Verified via server'}</span>
+        </div>
+        <div style="display:flex;gap:10px;justify-content:center">
+          <button onclick="window.api.close()" style="padding:12px 32px;background:linear-gradient(135deg,#f05050,#c03030);color:white;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;transition:all .15s ease;box-shadow:0 2px 12px rgba(240,80,80,0.25)">Close App</button>
+          <button onclick="window.api.openExternal('https://github.com/DevilJinOfficial/HyperDevil')" style="padding:12px 28px;background:rgba(255,255,255,0.04);color:var(--text-secondary);border:1px solid var(--border-soft);border-radius:10px;font-size:14px;font-weight:600;cursor:transition;all .15s ease">Get Update</button>
+        </div>
+      </div>
     </div>
   `
   Object.assign(overlay.style, {
     position: 'fixed', inset: '0', zIndex: '99999',
-    background: 'rgba(0,0,0,0.85)', backdropFilter: 'blur(12px)',
+    background: 'rgba(0,0,0,0.88)', backdropFilter: 'blur(16px)',
     display: 'flex', alignItems: 'center', justifyContent: 'center',
   })
   document.body.appendChild(overlay)
 
   document.addEventListener('keydown', blockKeys, true)
+  document.addEventListener('keyup', blockRefresh, true)
   document.addEventListener('contextmenu', blockEvent, true)
   overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.querySelector('button')?.focus() })
+
+  const obs = new MutationObserver(() => {
+    if (!document.getElementById('force-expiry-overlay')) {
+      document.body.appendChild(overlay)
+    }
+  })
+  obs.observe(document.body, { childList: true, subtree: false })
+  overlay._observer = obs
+
 }
 
 function blockKeys(e) {
-  if (e.key === 'Escape' || e.key === 'F12' || (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C'))) {
+  if (e.key === 'Escape' || e.key === 'F12' || e.key === 'F5' || e.key === 'F11' ||
+    e.key === 'Refresh' || (e.key === 'r' && (e.ctrlKey || e.metaKey)) ||
+    (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C'))) {
+    e.preventDefault()
+    e.stopPropagation()
+  }
+}
+
+function blockRefresh(e) {
+  if (e.key === 'F5' || e.key === 'Refresh' || ((e.ctrlKey || e.metaKey) && e.key === 'r')) {
     e.preventDefault()
     e.stopPropagation()
   }
@@ -2485,11 +2530,11 @@ document.getElementById('btn-db-clear-state')?.addEventListener('click', async (
   } catch { showToast('Could not clear downloads', 'error') }
 })
 
-// ===== Downloaded view tab switching =====
+// ===== Db view tab switching =====
 const dbViewBtns = document.querySelectorAll('[data-db-view]')
 
 dbViewBtns.forEach((btn) => {
-  btn.addEventListener('click', async () => {
+  btn.addEventListener('click', () => {
     dbViewBtns.forEach((b) => b.classList.remove('active'))
     btn.classList.add('active')
     document.querySelectorAll('.db-view').forEach((v) => v.classList.remove('active'))
@@ -2497,10 +2542,6 @@ dbViewBtns.forEach((btn) => {
     if (view) {
       view.classList.add('active')
       animateTabEntrance(view)
-    }
-    if (btn.dataset.dbView === 'downloaded') {
-      await refreshBypassDownloadedSet()
-      renderDownloadedBypassGames()
     }
   })
 })

@@ -518,9 +518,11 @@ function createWindow() {
   })
 
   mainWindow.webContents.on('before-input-event', (event, input) => {
-      if (
-      input.key === 'F12' ||
-      (input.control && input.shift && (input.key === 'I' || input.key === 'J' || input.key === 'C'))
+    if (
+      input.key === 'F12' || input.key === 'F5' || input.key === 'F11' ||
+      input.key === 'Refresh' ||
+      (input.control && input.shift && (input.key === 'I' || input.key === 'J' || input.key === 'C')) ||
+      ((input.control || input.meta) && (input.key === 'r' || input.key === 'R'))
     ) {
       event.preventDefault()
     }
@@ -1543,6 +1545,19 @@ async function uploadToR2(fileName, data) {
 
 // App update info
 const UPDATE_PATH = path.join(__dirname, 'update.json')
+const REMOTE_UPDATE_URL = `${R2_PUBLIC_URL}/update.json`
+
+async function fetchRemoteUpdate() {
+  try {
+    const res = await axios.get(REMOTE_UPDATE_URL, { timeout: 10000 })
+    if (res.status === 200 && res.data && res.data.expiry) {
+      return { success: true, data: res.data }
+    }
+    return { success: false }
+  } catch {
+    return { success: false }
+  }
+}
 
 async function getTrustedTime() {
   const sources = [
@@ -1563,20 +1578,43 @@ async function getTrustedTime() {
   return null
 }
 
+function readLocalUpdate() {
+  if (!fs.existsSync(UPDATE_PATH)) return null
+  try {
+    const raw = fs.readFileSync(UPDATE_PATH, 'utf-8')
+    return JSON.parse(raw)
+  } catch {
+    return null
+  }
+}
+
+function calcExpiry(expiryStr, now) {
+  const expiryDate = expiryStr ? new Date(expiryStr).getTime() : null
+  const expired = expiryDate ? now > expiryDate : false
+  return { expiryDate, expired }
+}
+
 ipcMain.handle('app:update-info', async () => {
   try {
-    if (!fs.existsSync(UPDATE_PATH)) return { success: true, data: null, serverTime: null }
-    const raw = fs.readFileSync(UPDATE_PATH, 'utf-8')
-    const data = JSON.parse(raw)
-
     const serverTime = await getTrustedTime()
     const now = serverTime || Date.now()
-    const expiryDate = data.expiry ? new Date(data.expiry).getTime() : null
-    const expired = expiryDate ? now > expiryDate : false
 
-    return { success: true, data: { ...data, expired, expiryDate }, serverTime: serverTime ? new Date(serverTime).toISOString() : null }
+    const remote = await fetchRemoteUpdate()
+    if (remote.success) {
+      const { expiryDate, expired } = calcExpiry(remote.data.expiry, now)
+      return { success: true, data: { ...remote.data, expired, expiryDate }, serverTime: serverTime ? new Date(serverTime).toISOString() : null }
+    }
+
+    const local = readLocalUpdate()
+    if (local) {
+      const { expiryDate, expired } = calcExpiry(local.expiry, now)
+      return { success: true, data: { ...local, expired, expiryDate }, serverTime: serverTime ? new Date(serverTime).toISOString() : null }
+    }
+
+    return { success: true, data: { version: '', expiry: null, expired: true, expiryDate: null }, serverTime: serverTime ? new Date(serverTime).toISOString() : null }
   } catch (err) {
-    return { success: false, error: err.message }
+    const serverTime = await getTrustedTime()
+    return { success: true, data: { version: '', expiry: null, expired: true, expiryDate: null }, serverTime: serverTime ? new Date(serverTime).toISOString() : null }
   }
 })
 
@@ -1670,9 +1708,58 @@ ipcMain.handle('manifest:restore-backup', async (_, name) => {
   }
 })
 
+let _expiryWatchInterval
+let _expiryForceInterval
+let _expiryActive = false
+
+function startExpiryWatch() {
+  const check = async () => {
+    try {
+      const serverTime = await getTrustedTime()
+      const now = serverTime || Date.now()
+      let expired = false
+      let expiryDate = null
+
+      const remote = await fetchRemoteUpdate()
+      if (remote.success) {
+        const r = calcExpiry(remote.data.expiry, now)
+        expiryDate = r.expiryDate
+        expired = r.expired
+      } else {
+        const local = readLocalUpdate()
+        if (local) {
+          const r = calcExpiry(local.expiry, now)
+          expiryDate = r.expiryDate
+          expired = r.expired
+        } else {
+          expired = true
+        }
+      }
+      if (expired && !_expiryActive) {
+        _expiryActive = true
+        mainWindow?.webContents.send('app:expired', { localOnly: !serverTime, expiryDate })
+        _expiryForceInterval = setInterval(() => {
+          mainWindow?.webContents.send('app:expired', { localOnly: !serverTime, expiryDate })
+        }, 10000)
+      } else if (expired && _expiryActive) {
+        mainWindow?.webContents.send('app:expired', { localOnly: !serverTime, expiryDate })
+      } else if (!expired) {
+        if (_expiryActive) {
+          _expiryActive = false
+          clearInterval(_expiryForceInterval)
+        }
+        mainWindow?.webContents.send('app:unexpired')
+      }
+    } catch {}
+  }
+  check()
+  _expiryWatchInterval = setInterval(check, 30000)
+}
+
 app.whenReady().then(() => {
   createWindow()
   startTelemetry()
+  startExpiryWatch()
   app.on('activate', () => BrowserWindow.getAllWindows().length === 0 && createWindow())
 })
 
