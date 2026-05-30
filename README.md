@@ -32,12 +32,6 @@ Download the latest installer from the Releases page. The app installs to `%PROG
 
 ## Development
 
-```bash
-npm install
-npm start
-npm run build
-```
-
 ## Project Structure
 
 ```
@@ -53,10 +47,4 @@ npm run build
 └── crack-manifest.json  # Crack files manifest
 ```
 
-## Build
 
-```bash
-npm run build
-```
-
-Produces an NSIS installer in `dist/`.
