@@ -1,0 +1,9 @@
+node_modules/
+dist/
+dist.rar
+installer/
+downloads/
+history/
+Output/
+.env.local
+*.env

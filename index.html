@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' https:; img-src 'self' https: data:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com;">
+  <title>HyperDevil</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="style.css">
+</head>
+  <body>
+  <div id="loading-screen">
+    <div class="loading-core">
+      <div class="loading-logo"></div>
+      <h1>HyperDevil</h1>
+      <p id="loading-copy">Preparing premium workspace...</p>
+      <div class="loading-step" id="loading-step">Warming up the engine...</div>
+      <div class="loading-bar"><span id="loading-progress"></span></div>
+    </div>
+  </div>
+
+  <!-- No background effects -->
+
+  <!-- Titlebar -->
+  <div id="titlebar">
+    <div class="titlebar-left">
+      <div class="app-logo-small"></div>
+      <span class="titlebar-title">HyperDevil</span>
+      <span class="breadcrumb-sep">›</span>
+      <span class="breadcrumb-current" id="breadcrumb">Home</span>
+    </div>
+    <div class="titlebar-center">
+      <div class="titlebar-nav-pills">
+        <button class="titlebar-nav-pill active" data-tab="home">Home</button>
+        <button class="titlebar-nav-pill" data-tab="bypass">Bypass Files</button>
+        <button class="titlebar-nav-pill" data-tab="guides">Guides</button>
+        <button class="titlebar-nav-pill" data-tab="settings">Settings</button>
+      </div>
+    </div>
+    <div class="titlebar-right">
+      <button class="titlebar-pill donate" id="btn-donate" title="Buy me a coffee on Ko-fi">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 14s-6-3.5-6-7.5A3.5 3.5 0 018 3a3.5 3.5 0 016 3.5C14 10.5 8 14 8 14z"/></svg>
+        <span>Buy me a coffee</span>
+      </button>
+      <div class="titlebar-divider"></div>
+      <button class="titlebar-btn" id="btn-min" title="Minimize">—</button>
+      <button class="titlebar-btn" id="btn-max" title="Maximize">□</button>
+      <button class="titlebar-btn close" id="btn-close" title="Close">×</button>
+    </div>
+  </div>
+
+  <!-- Main Layout -->
+  <div id="app-layout">
+    <!-- Main Content -->
+    <div id="main-content">
+      <!-- Home Page -->
+      <section id="tab-home" class="tab-content active">
+        <!-- Premium Hero Section -->
+        <div class="home-hero">
+          <div class="home-hero-bg">
+            <div class="home-hero-orbe"></div>
+            <div class="home-hero-orbe d2"></div>
+            <div class="home-hero-orbe d3"></div>
+          </div>
+          <div class="home-hero-particles">
+            <span></span><span></span><span></span><span></span><span></span><span></span>
+          </div>
+          <div class="home-hero-content">
+            <div class="home-hero-brand">
+              <div class="home-hero-logo">
+                <div class="home-hero-logo-ring"></div>
+              </div>
+              <div class="home-hero-titles">
+                <h1 class="home-hero-title">HyperDevil</h1>
+                <p class="home-hero-sub">All-in-One System Toolkit</p>
+              </div>
+            </div>
+            <div class="home-hero-stats">
+              <div class="home-hero-stat">
+                <span class="home-hero-stat-num">1.0.1</span>
+                <span class="home-hero-stat-lbl">Version</span>
+              </div>
+              <div class="home-hero-stat">
+                <span class="home-hero-stat-num" id="home-hero-games">42+</span>
+                <span class="home-hero-stat-lbl">Bypasses</span>
+              </div>
+              <div class="home-hero-stat">
+                <span class="home-hero-stat-num">3</span>
+                <span class="home-hero-stat-lbl">Tools</span>
+              </div>
+            </div>
+            <div class="home-hero-badges" id="welcome-badges">
+              <span class="badge on" id="welcome-test">TestSign ON</span>
+              <span class="badge off" id="welcome-mem">MemInt OFF</span>
+              <span class="badge off" id="welcome-vbs">VBS OFF</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- System Metrics -->
+        <div class="home-metrics">
+          <div class="home-metric-card" id="hm-test">
+            <div class="hm-icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="currentColor"><path d="M12 8V4a1 1 0 00-2 0v4H6a1 1 0 000 2h4v4a1 1 0 002 0v-4h4a1 1 0 000-2h-4z"/></svg></div>
+            <div class="hm-body">
+              <span class="hm-label">Test Signing</span>
+              <span class="hm-value on" id="home-test-mini">ON</span>
+            </div>
+            <div class="hm-track"><span class="hm-fill" id="hm-fill-test" style="width:100%"></span></div>
+          </div>
+          <div class="home-metric-card" id="hm-mem">
+            <div class="hm-icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="currentColor"><path d="M10 2L3 5v5c0 4.5 3 8.5 7 9 4-.5 7-4.5 7-9V5l-7-3z"/></svg></div>
+            <div class="hm-body">
+              <span class="hm-label">Mem Integrity</span>
+              <span class="hm-value off" id="home-mem-mini">OFF</span>
+            </div>
+            <div class="hm-track"><span class="hm-fill" id="hm-fill-mem" style="width:0%"></span></div>
+          </div>
+          <div class="home-metric-card" id="hm-vbs">
+            <div class="hm-icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="currentColor"><path d="M12 2l4 4-4 4-4-4 4-4zM4 6l4 4-4 4-4-4 4-4z"/></svg></div>
+            <div class="hm-body">
+              <span class="hm-label">VBS</span>
+              <span class="hm-value on" id="home-vbs-mini">ON</span>
+            </div>
+            <div class="hm-track"><span class="hm-fill" id="hm-fill-vbs" style="width:100%"></span></div>
+          </div>
+          <div class="home-metric-card" id="hm-virt">
+            <div class="hm-icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="currentColor"><path d="M4 2h12a2 2 0 012 2v12a2 2 0 01-2 2H4a2 2 0 01-2-2V4a2 2 0 012-2zm1 3v10h10V5H5z"/></svg></div>
+            <div class="hm-body">
+              <span class="hm-label">Virtualization</span>
+              <span class="hm-value on" id="home-virt-mini">ON</span>
+            </div>
+            <div class="hm-track"><span class="hm-fill" id="hm-fill-virt" style="width:100%"></span></div>
+          </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="home-section-head">
+          <h3 class="section-title" style="margin:0">Quick Actions</h3>
+          <div class="home-section-line"></div>
+        </div>
+        <div class="home-quick-grid">
+          <div class="home-action-card action-card" data-nav="bypass">
+            <div class="hac-glow"></div>
+            <div class="hac-icon-wrap"><div class="hac-icon"><svg width="22" height="22" viewBox="0 0 20 20" fill="currentColor"><path d="M10 2l2 4h5l-4 3 1.5 5L10 11 5.5 14 7 9 3 6h5l2-4z"/></svg></div></div>
+            <span class="hac-title">Bypass Files</span>
+            <span class="hac-sub">Game Bypasses</span>
+          </div>
+          <div class="home-action-card action-card" data-nav="guides">
+            <div class="hac-glow"></div>
+            <div class="hac-icon-wrap"><div class="hac-icon"><svg width="22" height="22" viewBox="0 0 20 20" fill="currentColor"><path d="M4 3h12a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2zm0 4h12M4 11h12M4 15h8"/></svg></div></div>
+            <span class="hac-title">Guides</span>
+            <span class="hac-sub">Step-by-Step Tutorials</span>
+          </div>
+        </div>
+
+        <!-- Community Row -->
+        <div class="home-dual-row">
+          <div class="home-community-col">
+            <div class="home-section-head">
+              <h3 class="section-title" style="margin:0">Community</h3>
+              <div class="home-section-line"></div>
+            </div>
+            <div class="home-community-grid">
+              <div class="home-community-card discord" id="home-discord-card">
+                <div class="hcc-bg"></div>
+                <div class="hcc-content">
+                  <div class="hcc-icon"><img src="../assets/Discord.png" alt="Discord" width="28" height="28"></div>
+                  <div class="hcc-text">
+                    <span class="hcc-title">Discord Server</span>
+                    <span class="hcc-sub">Join 1,000+ members</span>
+                  </div>
+                  <div class="hcc-arrow"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M6 3l5 5-5 5"/></svg></div>
+                </div>
+              </div>
+              <div class="home-community-card kofi" id="home-kofi-card">
+                <div class="hcc-bg"></div>
+                <div class="hcc-content">
+                  <div class="hcc-icon"><img src="../assets/ko-fi.png" alt="Ko-fi" width="28" height="28"></div>
+                  <div class="hcc-text">
+                    <span class="hcc-title">Buy me a coffee</span>
+                    <span class="hcc-sub">Support on Ko-fi</span>
+                  </div>
+                  <div class="hcc-arrow"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M6 3l5 5-5 5"/></svg></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- Bypass Detail Modal (Simplified Premium) -->
+      <div id="bypass-detail-modal-overlay" class="modal-hidden bypass-modal-overlay">
+        <div class="bypass-modal-card glass-card" role="dialog" aria-modal="true" aria-labelledby="bypass-modal-title">
+          <button class="bypass-modal-close text-btn" id="btn-bypass-modal-close" title="Close">×</button>
+          <div class="bypass-modal-inner">
+            <div class="bypass-modal-left">
+              <div class="cover-frame modal-cover">
+                <img id="bypass-modal-image" src="" alt="Game cover" />
+              </div>
+            </div>
+            <div class="bypass-modal-right">
+              <h2 id="bypass-modal-title">Game Title</h2>
+              <div class="bypass-modal-build">
+                <span class="bypass-build-badge" id="bypass-modal-build-badge">Build Unknown</span>
+              </div>
+              <div id="bypass-modal-description" class="bypass-modal-desc">Short description goes here</div>
+              <div class="bypass-modal-actions">
+                <button class="bypass-dl-btn" id="btn-bypass-modal-download">
+                  <div class="btn-shimmer"></div>
+                  <span class="btn-icon">☁</span>
+                  <span class="btn-label">Download Bypass</span>
+                </button>
+                <button class="bypass-goto-btn" id="btn-bypass-modal-open-folder" style="display:none">
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M2 3h5l2 2h5a1 1 0 011 1v7a1 1 0 01-1 1H2a1 1 0 01-1-1V4a1 1 0 011-1z"/></svg>
+                  Show Files
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+      <!-- Guides Page -->
+      <section id="tab-guides" class="tab-content">
+        <h2>Guides</h2>
+        <p class="subtitle">Setup tutorials and documentation</p>
+
+        <div class="tab-switcher">
+          <button class="tab-pill active" data-guide="proper">Proper Guide</button>
+        </div>
+
+        <div id="guide-proper" class="guide-content active">
+          <div class="glass-card banner-card">
+            <span class="banner-title">DenuvOwO Setup Guide</span>
+            <span class="banner-desc">Follow each step in order from top to bottom</span>
+          </div>
+
+          <div class="step-list">
+            <div class="step-card glass-card">
+              <span class="step-number">1</span>
+              <div class="step-info">
+                <span class="step-title">Enable Boot Settings</span>
+                <span class="step-subtitle">Test Signing + No Integrity Checks</span>
+              </div>
+            </div>
+            <div class="step-card glass-card">
+              <span class="step-number">2</span>
+              <div class="step-info">
+                <span class="step-title">Disable Memory Integrity</span>
+                <span class="step-subtitle">Settings → Windows Security → Core Isolation → OFF</span>
+              </div>
+            </div>
+            <div class="step-card glass-card">
+              <span class="step-number">3</span>
+              <div class="step-info">
+                <span class="step-title">BIOS Settings</span>
+                <span class="step-subtitle">Secure Boot: OFF | SVM (AMD): ON | VT-x (Intel): ON</span>
+              </div>
+            </div>
+            <div class="step-card glass-card">
+              <span class="step-number">4</span>
+              <div class="step-info">
+                <span class="step-title">Copy DenuvOwO Files</span>
+                <span class="step-subtitle">Paste files into your game installation folder</span>
+              </div>
+            </div>
+            <div class="step-card glass-card">
+              <span class="step-number">5</span>
+              <div class="step-info">
+                <span class="step-title">Restart PC</span>
+                <span class="step-subtitle">Use Start Menu → Power → Restart</span>
+              </div>
+            </div>
+            <div class="step-card glass-card highlighted">
+              <span class="step-number">7</span>
+              <div class="step-info">
+                <span class="step-title">Launch Game</span>
+                <span class="step-subtitle">Run the game EXE as Administrator</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="glass-card important-note">
+            <strong>! Important:</strong> Match your game version with DenuvOwO version
+          </div>
+        </div>
+      </section>
+
+      <!-- Bypass Files Page -->
+      <section id="tab-bypass" class="tab-content">
+        <h2>Bypass Files</h2>
+        <p class="subtitle">Browse games, open details, and jump to download sources</p>
+
+        <div class="base-game-wrapper">
+          <button class="btn-primary btn-sm" id="btn-base-game">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0v12M2 6l6 6 6-6"/></svg>
+            Base Game
+          </button>
+          <div id="base-game-dropdown" class="base-game-dropdown hidden">
+            <button class="base-game-option" data-key="cirno">
+              <span class="comp-icon" style="width:28px;height:28px;border-radius:6px"></span>
+              <span>Cirno Downloader</span>
+            </button>
+            <button class="base-game-option" data-key="sigma">
+              <span class="comp-icon sigma" style="width:28px;height:28px;border-radius:6px"></span>
+              <span>Sigma</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="tab-switcher db-tab-switcher">
+          <button class="tab-pill active" data-db-view="browse">Browse</button>
+          <button class="tab-pill" data-db-view="downloaded">Downloaded</button>
+          <button class="tab-pill" data-db-view="crack">Crack Files</button>
+        </div>
+
+        <div id="db-view-browse" class="db-view active">
+
+        <!-- Updated toolbar with filter/sort -->
+        <div class="bypass-toolbar glass-card">
+          <div class="bypass-toolbar-title">
+            <span class="comp-title">Game Library</span>
+            <span class="comp-subtitle" id="bypass-count">0 games</span>
+          </div>
+            <div class="bypass-toolbar-actions">
+            <div class="bypass-filter-chips" id="bypass-filter-chips">
+              <button class="bypass-chip active" data-filter="all">All</button>
+            </div>
+            <select id="bypass-sort" class="bypass-sort">
+              <option value="name-asc">A-Z</option>
+              <option value="name-desc">Z-A</option>
+              <option value="latest">Latest</option>
+              <option value="status">Status</option>
+            </select>
+            <div class="bypass-search-wrap">
+              <svg class="bypass-search-icon" width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M11.5 11.5L15 15M7 1a6 6 0 100 12A6 6 0 007 1z" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
+              <input id="bypass-search" class="bypass-search" placeholder="Search game..." />
+            </div>
+
+          </div>
+        </div>
+
+        <div id="bypass-grid" class="bypass-grid"></div>
+        </div>
+
+        <div id="db-view-downloaded" class="db-view">
+          <div class="db-header glass-card">
+            <div class="db-header-left">
+              <span class="comp-title">Downloaded Games</span>
+              <span class="comp-subtitle" id="db-dl-count">0 games</span>
+            </div>
+            <div class="db-header-right">
+              <button class="btn-ghost btn-sm reset-btn" id="btn-db-clear-state">Clear All</button>
+            </div>
+          </div>
+          <div id="db-downloaded-grid" class="db-grid"></div>
+        </div>
+
+        <div id="db-view-crack" class="db-view">
+          <div class="db-header glass-card">
+            <div class="db-header-left">
+              <span class="comp-title">Crack Files</span>
+              <span class="comp-subtitle">Browse crack downloads by cover</span>
+            </div>
+            <div class="db-header-right">
+              <select id="crack-sort" class="bypass-sort">
+                <option value="name-asc">A-Z</option>
+                <option value="name-desc">Z-A</option>
+                <option value="latest">Latest</option>
+                <option value="status">Status</option>
+              </select>
+            </div>
+          </div>
+          <div id="db-crack-files-grid" class="db-grid"></div>
+        </div>
+      </section>
+
+      <section id="tab-bypass-detail" class="tab-content">
+        <div class="bypass-detail-lively">
+          <div class="bdl-orbe bdl-o1"></div>
+          <div class="bdl-orbe bdl-o2"></div>
+          <div class="bdl-orbe bdl-o3"></div>
+          <div class="bdl-spark"></div><div class="bdl-spark"></div><div class="bdl-spark"></div><div class="bdl-spark"></div><div class="bdl-spark"></div>
+          <div class="bdl-spark"></div><div class="bdl-spark"></div><div class="bdl-spark"></div><div class="bdl-spark"></div><div class="bdl-spark"></div>
+        </div>
+        <div class="premium-detail-wrapper">
+          <div class="premium-detail-nav">
+            <button class="premium-nav-back" id="btn-bypass-back">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><polyline points="12 19 5 12 12 5"/></svg>
+              <span>Back to Library</span>
+            </button>
+            <button class="premium-nav-share" id="btn-bypass-share" title="Share link">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+            </button>
+          </div>
+          <div class="premium-detail-grid">
+            <div class="premium-detail-cover-col">
+              <div class="premium-cover-frame">
+                <div class="premium-cover-glow"></div>
+                <div class="premium-cover-rim"></div>
+                 <img id="bypass-page-image" src="" alt="Game cover" referrerpolicy="no-referrer" />
+                  <div class="premium-cover-badges">
+                    <span id="bypass-page-pill" class="premium-badge">Status</span>
+                  </div>
+              </div>
+            </div>
+            <div class="premium-detail-content-col">
+              <div class="premium-title-section">
+                <div class="premium-title-tags">
+                  <span id="bypass-page-build-badge" class="premium-build-tag">BUILD UNKNOWN</span>
+                </div>
+                <h1 id="bypass-page-title" class="premium-game-title">Game Title</h1>
+              </div>
+
+              <div class="premium-description-panel" id="bypass-page-description"></div>
+
+              <div class="premium-guide-panel">
+                <div class="premium-guide-header">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  <span>Quick Setup Guide</span>
+                </div>
+                <div class="premium-guide-steps">
+                  <div class="premium-step">
+                    <div class="premium-step-marker">1</div>
+                    <span>Get clean game files (use Downloader or Sigma)</span>
+                  </div>
+                  <div class="premium-step">
+                    <div class="premium-step-marker">2</div>
+                    <span>Download bypass below &amp; extract to game folder</span>
+                  </div>
+                  <div class="premium-step">
+                    <div class="premium-step-marker">3</div>
+                    <span>Run the game directly from the game EXE</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="premium-detail-actions">
+                <button class="premium-dl-btn" id="btn-bypass-download">
+                  <div class="premium-btn-glow"></div>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                  <span class="premium-btn-label">Download Bypass</span>
+                  <div class="premium-btn-spark"></div>
+                </button>
+                <button class="premium-goto-btn" id="btn-bypass-open-folder" style="display:none">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+                  <span>Show Files</span>
+                </button>
+              </div>
+
+              <div class="premium-meta-grid">
+                <div class="premium-meta-card">
+                  <div class="premium-meta-icon">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+                  </div>
+                  <span class="premium-meta-label">Build ID</span>
+                  <span class="premium-meta-value" id="bypass-page-buildid">Unknown</span>
+                </div>
+                <div class="premium-meta-card">
+                  <div class="premium-meta-icon">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                  </div>
+                  <span class="premium-meta-label">Developer</span>
+                  <span class="premium-meta-value" id="bypass-page-dev">Unknown</span>
+                </div>
+                <div class="premium-meta-card">
+                  <div class="premium-meta-icon">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                  </div>
+                  <span class="premium-meta-label">Publisher</span>
+                  <span class="premium-meta-value" id="bypass-page-pub">Unknown</span>
+                </div>
+                <!-- Genre removed per user request -->
+                <div class="premium-meta-card">
+                  <div class="premium-meta-icon">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                  </div>
+                  <span class="premium-meta-label">Format</span>
+                  <span class="premium-meta-value" id="bypass-page-format">Archive</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Bypass File Detail Page -->
+      <section id="tab-bypass-file-detail" class="tab-content">
+        <div class="bypass-file-detail-stage">
+          <div class="glass-card banner-card" style="margin-bottom:16px;padding:10px 16px">
+            <span style="font-size:11px;color:var(--text-tertiary)">Switch to a different section in Bypass Files, then select a bypass file — scrolling will work here.</span>
+          </div>
+          <div class="premium-detail-wrapper">
+            <div class="premium-detail-nav">
+              <button class="premium-nav-back" id="btn-bypass-file-back">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><polyline points="12 19 5 12 12 5"/></svg>
+                <span>Back to Library</span>
+              </button>
+            </div>
+            <div class="premium-detail-grid">
+              <div class="premium-detail-cover-col">
+                <div class="premium-cover-frame">
+                  <div class="premium-cover-glow"></div>
+                  <div class="premium-cover-rim"></div>
+                  <img id="bypass-file-page-image" src="" alt="Game cover" referrerpolicy="no-referrer" />
+                  <div class="premium-cover-badges">
+                    <span id="bypass-file-page-pill" class="premium-badge">Status</span>
+                  </div>
+                </div>
+              </div>
+              <div class="premium-detail-content-col">
+                <div class="premium-title-section">
+                  <div class="premium-title-tags">
+                    <span id="bypass-file-page-build-badge" class="premium-build-tag">BUILD UNKNOWN</span>
+                  </div>
+                  <h1 id="bypass-file-page-title" class="premium-game-title">Game Title</h1>
+                </div>
+
+                <div class="premium-description-panel">
+                  <div id="bypass-file-page-description" class="premium-description-text"></div>
+                </div>
+
+                <div class="premium-detail-actions">
+                  <button class="premium-dl-btn" id="btn-bypass-file-detail-download">
+                    <div class="premium-btn-glow"></div>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    <span class="premium-btn-label">Download Bypass</span>
+                    <div class="premium-btn-spark"></div>
+                  </button>
+                </div>
+
+                <div class="premium-meta-grid">
+                  <div class="premium-meta-card">
+                    <div class="premium-meta-icon">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+                    </div>
+                    <span class="premium-meta-label">Build ID</span>
+                    <span class="premium-meta-value" id="bypass-file-page-buildid">Unknown</span>
+                  </div>
+                  <div class="premium-meta-card">
+                    <div class="premium-meta-icon">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                    </div>
+                    <span class="premium-meta-label">Format</span>
+                    <span class="premium-meta-value" id="bypass-file-page-format">Archive</span>
+                  </div>
+                  <div class="premium-meta-card">
+                    <div class="premium-meta-icon">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                    </div>
+                    <span class="premium-meta-label">Publisher</span>
+                    <span class="premium-meta-value" id="bypass-file-page-publisher">HyperDevil</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Crack Detail Page -->
+      <section id="tab-crack-detail" class="tab-content">
+        <div class="crack-detail-stage">
+          <div class="premium-detail-wrapper">
+            <div class="premium-detail-nav">
+              <button class="premium-nav-back" id="btn-crack-back">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><polyline points="12 19 5 12 12 5"/></svg>
+                <span>Back to Library</span>
+              </button>
+            </div>
+            <div class="premium-detail-grid">
+              <div class="premium-detail-cover-col">
+                <div class="premium-cover-frame">
+                  <div class="premium-cover-glow"></div>
+                  <div class="premium-cover-rim"></div>
+                  <img id="crack-page-image" src="" alt="Game cover" referrerpolicy="no-referrer" />
+                  <div class="premium-cover-badges">
+                    <span id="crack-page-pill" class="premium-badge">Status</span>
+                    <span class="premium-chip">Crack files</span>
+                  </div>
+                </div>
+              </div>
+              <div class="premium-detail-content-col">
+                <div class="premium-title-section">
+                  <div class="premium-title-tags">
+                    <span id="crack-page-build-badge" class="premium-build-tag">BUILD UNKNOWN</span>
+                  </div>
+                  <h1 id="crack-page-title" class="premium-game-title">PRAGMATA</h1>
+                </div>
+
+                <div class="premium-description-panel">
+                  <div id="crack-page-description" class="premium-description-text"></div>
+                </div>
+
+                <div class="premium-detail-actions">
+                  <button class="premium-dl-btn" id="btn-crack-detail-download">
+                    <div class="premium-btn-glow"></div>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    <span class="premium-btn-label">Apply Crack Files</span>
+                    <div class="premium-btn-spark"></div>
+                  </button>
+                </div>
+
+                <div class="premium-meta-grid">
+                  <div class="premium-meta-card">
+                    <div class="premium-meta-icon">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                    </div>
+                    <span class="premium-meta-label">Format</span>
+                    <span class="premium-meta-value" id="crack-page-format">Archive</span>
+                  </div>
+                  <!-- 'Type' meta removed per user request -->
+                  <div class="premium-meta-card">
+                    <div class="premium-meta-icon">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                    </div>
+                    <span class="premium-meta-label">Publisher</span>
+                    <span class="premium-meta-value" id="crack-page-publisher">HyperDevil</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Settings Page -->
+      <section id="tab-settings" class="tab-content">
+        <h2>Settings</h2>
+
+        <div class="glass-card settings-header-card">
+          <div class="settings-logo"></div>
+          <div>
+            <h3 style="margin:0">HyperDevil <span class="badge neutral" id="settings-version-badge">v...</span></h3>
+            <p class="subtitle" style="margin:4px 0 0">Windows Boot Configuration Manager for Game Modding</p>
+          </div>
+        </div>
+
+        <h3 class="section-title">Application</h3>
+        <div class="glass-card">
+          <div class="settings-row">
+            <div>
+              <span class="comp-title">Installation Directory</span>
+              <span class="comp-desc" id="settings-path">C:\Users\...</span>
+            </div>
+            <button class="btn-ghost btn-sm" id="btn-open-install-dir">Open</button>
+          </div>
+          <div class="settings-row">
+            <div>
+              <span class="comp-title">UI Scale</span>
+              <span class="comp-desc">Adjust the interface size for your display resolution</span>
+            </div>
+            <div class="scale-control">
+              <div class="scale-row">
+                <input type="range" id="scale-slider" min="50" max="200" value="100" class="scale-slider">
+                <input type="number" id="scale-input" min="50" max="200" value="100" class="scale-input">
+                <span class="scale-label" id="scale-value">%</span>
+                <button class="btn-ghost btn-sm" id="btn-reset-scale" title="Reset to 100%">Reset</button>
+              </div>
+              <div class="scale-marks">
+                <span>50%</span><span>100%</span><span>150%</span><span>200%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <h3 class="section-title">Community</h3>
+        <div class="grid-3">
+          <div class="glass-card settings-community-card" id="settings-card-discord">
+            <img src="../assets/Discord.png" alt="Discord" width="32" height="32">
+            <span class="comp-title">Discord</span>
+            <span class="comp-subtitle">Join our community</span>
+          </div>
+          <div class="glass-card settings-community-card" id="settings-card-donate">
+            <img src="../assets/ko-fi.png" alt="Ko-fi" width="32" height="32">
+            <span class="comp-title">Donate</span>
+            <span class="comp-subtitle">Support development</span>
+          </div>
+
+        </div>
+
+        <h3 class="section-title">Developer</h3>
+        <div class="glass-card" style="text-align:center;padding:30px">
+          <div class="settings-logo" style="margin:0 auto 12px"></div>
+          <span class="comp-title">DevilJin</span>
+          <span class="comp-subtitle">Main Developer</span>
+          <span class="comp-desc">All rights reserved</span>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- Generic Modal -->
+  <div id="modal-overlay" class="modal-hidden">
+    <div class="modal-card glass-card">
+      <div class="modal-icon">
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+          <circle cx="24" cy="24" r="20" fill="rgba(240,80,80,0.15)"/>
+          <text x="24" y="30" text-anchor="middle" fill="#f05050" font-size="24" font-weight="bold">i</text>
+        </svg>
+      </div>
+      <h3 id="modal-title">Notice</h3>
+      <p id="modal-subtitle"></p>
+      <button class="btn-primary" id="modal-ok">OK</button>
+    </div>
+  </div>
+
+  <div id="download-progress-overlay" class="modal-hidden">
+    <div class="download-progress-card glass-card">
+      <h3 id="download-progress-title">Downloading...</h3>
+      <p id="download-progress-subtitle">Please wait</p>
+      <div id="download-progress-warning" class="download-warning hidden">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1L1 14h14L8 1zm0 3a1 1 0 011 1v3a1 1 0 01-2 0V5a1 1 0 011-1zm0 8a1 1 0 110-2 1 1 0 010 2z"/></svg>
+        <span>Make sure your antivirus is disabled — it may delete these files</span>
+      </div>
+      <div class="loading-bar">
+        <span id="download-progress-fill"></span>
+      </div>
+      <span id="download-progress-percent">0%</span>
+      <div class="download-progress-actions" style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:14px">
+        <button id="btn-open-download-folder" class="btn-ghost btn-sm hidden">Show in folder</button>
+        <button id="btn-cancel-download" class="btn-ghost btn-sm hidden">Cancel</button>
+      </div>
+      <div id="download-file-list" class="download-file-list hidden" style="margin-top:12px;text-align:left;max-height:200px;overflow-y:auto;width:100%">
+        <div style="font-size:12px;color:#888;margin-bottom:6px;font-weight:600">EXTRACTED FILES</div>
+        <div id="download-file-list-items"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="bypass-version-overlay" class="modal-hidden">
+    <div class="bypass-version-modal glass-card">
+      <h3>Choose a version</h3>
+      <div id="bypass-version-list"></div>
+      <div class="action-row">
+        <button class="btn-ghost btn-sm" id="btn-bypass-version-close">Close</button>
+        <button class="btn-primary btn-sm" id="btn-bypass-version-next">Next</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Crack Files Information Modal -->
+  <div id="crack-files-info-overlay" class="modal-hidden">
+    <div class="crack-files-info-modal bypass-detail-layout">
+      <div class="bypass-detail-media">
+        <img id="crack-game-cover" src="" alt="Game cover" loading="lazy" referrerpolicy="no-referrer" />
+        <div class="bypass-detail-media-badges">
+          <span class="badge on">Ready</span>
+          <span class="detail-chip">Crack file</span>
+        </div>
+      </div>
+      <div class="bypass-detail-content">
+        <div class="bypass-detail-title-row">
+          <h2 id="crack-game-title">Game Title</h2>
+          <button class="btn-ghost btn-sm" id="btn-crack-files-close" title="Close">×</button>
+        </div>
+        <div id="crack-game-description" class="bypass-page-description"></div>
+        <div class="bypass-detail-actions">
+          <button class="bypass-dl-btn" id="btn-crack-download" style="width:100%;">
+            <div class="btn-shimmer"></div>
+            <span class="btn-icon">☁</span>
+            <span class="btn-label">Apply Crack Files</span>
+          </button>
+        </div>
+        <div class="bypass-meta-grid">
+          <div class="bypass-meta-item">
+            <span class="bypass-meta-icon">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 2C4.1 2 1 5.1 1 9s3.1 7 7 7 7-3.1 7-7-3.1-7-7-7zm0 12c-2.8 0-5-2.2-5-5s2.2-5 5-5 5 2.2 5 5-2.2 5-5 5zm0-9c-2.2 0-4 1.8-4 4s1.8 4 4 4 4-1.8 4-4-1.8-4-4-4z"/></svg>
+            </span>
+            <span class="bypass-meta-label">Format</span>
+            <span class="bypass-meta-value">Archive</span>
+          </div>
+          <div class="bypass-meta-item">
+            <span class="bypass-meta-icon">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M1 4l7-3 7 3-7 3-7-3zM1 8l7-3 7 3-7 3-7-3zM1 12l7-3 7 3-7 3-7-3z"/></svg>
+            </span>
+            <span class="bypass-meta-label">Publisher</span>
+            <span class="bypass-meta-value">HyperDevil</span>
+          </div>
+          <div class="bypass-meta-item">
+            <span class="bypass-meta-icon">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M7 2l2 4 5 .5L10 9l1 4.5-4-2.5-4 2.5L6 9 2 6.5 7 6l2-4z"/></svg>
+            </span>
+            <span class="bypass-meta-label">Type</span>
+            <span class="bypass-meta-value">Crack Files</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div id="toast-root" class="toast-root"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
