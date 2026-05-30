@@ -1,9 +1,5 @@
-const _K = 0xAB
-function _D(h) {
-  let r = ''
-  for (let i = 0; i < h.length; i += 2) r += String.fromCharCode(parseInt(h.substr(i, 2), 16) ^ _K)
-  return r
-}
+let downloadLinks = {}
+const _initDownloadLinks = window.api.getDownloadLinks().then((links) => { downloadLinks = links }).catch(() => {})
 
 document.addEventListener('contextmenu', (e) => e.preventDefault())
 document.addEventListener('keydown', (e) => {
@@ -49,29 +45,6 @@ async function applyComponentImages() {
     } catch (_) {
       // Keep default gradients when file resolve fails.
     }
-  }
-}
-
-const downloadLinks = {
-  cirno: {
-    fileName: 'CirnoDownloader.exe',
-    url: 'https://hyperdevil.bariplux.com/CirnoDownloader.exe'
-  },
-  sigma: {
-    fileName: 'Sigma.exe',
-    url: 'https://hyperdevil.bariplux.com/Sigma.exe'
-  },
-  'hypervisor-manager': {
-    fileName: 'HypervisorManager.exe',
-    url: 'https://hyperdevil.bariplux.com/HypervisorManager.exe'
-  },
-  inspectre: {
-    fileName: 'InSpectre.exe',
-    url: 'https://hyperdevil.bariplux.com/InSpectre.exe'
-  },
-  'vbs-script': {
-    fileName: 'VBS.cmd',
-    url: _D('c3dfdfdbd8918484dbdec986c99cca9fce9892c99e9bc8ce9f9c9e9ac99293ca989fc8ce9dcecfc8cecd9c9b85d99985cfcedd84fde9f885c8c6cf')
   }
 }
 
@@ -2368,7 +2341,7 @@ initGameData().then(() => {
 Promise.allSettled([
   applyBrandImage(),
   applyComponentImages(),
-  refreshDownloadedState(),
+  _initDownloadLinks.then(() => refreshDownloadedState()),
   loadBootStatus(),
   (typeof window.api.discordStatus === 'function' ? window.api.discordStatus().then(() => {}).catch(() => {}) : Promise.resolve())
 ])

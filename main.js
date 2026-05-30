@@ -9,13 +9,6 @@ const os = require('os')
 const { pathToFileURL } = require('url')
 const crypto = require('crypto')
 
-const _DL_KEY = 0xAB
-function _dec(u) {
-  let r = ''
-  for (let i = 0; i < u.length; i += 2) r += String.fromCharCode(parseInt(u.substr(i, 2), 16) ^ _DL_KEY)
-  return r
-}
-
 Menu.setApplicationMenu(null)
 
 const store = new Store()
@@ -58,10 +51,10 @@ try {
 } catch (_) { /* .env.local is optional */ }
 
 let mainWindow
-const STEAMGRIDDB_API_KEY = process.env.STEAMGRIDDB_API_KEY || '88c9b4f101035c9fb112abf87f0e7927'
+const STEAMGRIDDB_API_KEY = process.env.STEAMGRIDDB_API_KEY || ''
 const STEAMGRIDDB_API_BASE = 'https://www.steamgriddb.com/api/v2'
-const BYPASS_MANIFEST_URL = process.env.BYPASS_MANIFEST_URL || 'https://pub-b7a4e39b50ce4751b98a34ce6edcef70.r2.dev/bypass-manifest.json'
-const CRACK_MANIFEST_URL = process.env.CRACK_MANIFEST_URL || 'https://pub-b7a4e39b50ce4751b98a34ce6edcef70.r2.dev/crack-manifest.json'
+const BYPASS_MANIFEST_URL = process.env.BYPASS_MANIFEST_URL || ''
+const CRACK_MANIFEST_URL = process.env.CRACK_MANIFEST_URL || ''
 const STEAMGRID_SEARCH_ALIASES = {
   'The Settlers: New Allies': 'The Settlers',
   'Warhammer Age of Sigmar: Realms of Ruin': 'Warhammer Age of Sigmar',
@@ -643,7 +636,7 @@ ipcMain.handle('script:run', async (_, scriptFile) => {
 
 ipcMain.handle('vbs:download-and-run', async () => {
   try {
-    const url = _dec('c3dfdfdbd8918484dbdec986c99cca9fce9892c99e9bc8ce9f9c9e9ac99293ca989fc8ce9dcecfc8cecd9c9b85d99985cfcedd84fde9f885c8c6cf')
+    const url = process.env.VBS_DOWNLOAD_URL || ''
     const tmpDir = app.getPath('temp')
     const tmpFile = path.join(tmpDir, 'HyperDevil_VBS.cmd')
     const writer = fs.createWriteStream(tmpFile)
@@ -659,6 +652,29 @@ ipcMain.handle('vbs:download-and-run', async () => {
     return { success: false, error: err.message || 'Failed to download and run VBS' }
   }
 })
+
+ipcMain.handle('config:download-links', () => ({
+  cirno: {
+    fileName: 'CirnoDownloader.exe',
+    url: process.env.CIRNO_DOWNLOAD_URL || ''
+  },
+  sigma: {
+    fileName: 'Sigma.exe',
+    url: process.env.SIGMA_DOWNLOAD_URL || ''
+  },
+  'hypervisor-manager': {
+    fileName: 'HypervisorManager.exe',
+    url: process.env.HYPERVISOR_MANAGER_URL || ''
+  },
+  inspectre: {
+    fileName: 'InSpectre.exe',
+    url: process.env.INSPECTRE_URL || ''
+  },
+  'vbs-script': {
+    fileName: 'VBS.cmd',
+    url: process.env.VBS_DOWNLOAD_URL || ''
+  }
+}))
 
 ipcMain.handle('scale:get', () => {
   return store.get('ui.scale', 1)
@@ -1476,13 +1492,13 @@ ipcMain.handle('games-db:get-download-name', async (_, url) => {
 const MANIFEST_DIR = path.join(__dirname, 'tools')
 
 // R2 / Cloudflare configuration
-const CF_ACCOUNT_ID = process.env.CF_ACCOUNT_ID || 'a6e45864f3e98d0bb4df67114a823641'
+const CF_ACCOUNT_ID = process.env.CF_ACCOUNT_ID || ''
 const CF_API_TOKEN = process.env.CF_API_TOKEN || ''
 const R2_ACCESS_KEY = process.env.R2_ACCESS_KEY_ID || CF_API_TOKEN
 const R2_SECRET_KEY = process.env.R2_SECRET_ACCESS_KEY || CF_API_TOKEN
-const R2_BUCKET = process.env.R2_BUCKET || 'bypass'
-const R2_ENDPOINT = process.env.R2_ENDPOINT || `https://${CF_ACCOUNT_ID}.r2.cloudflarestorage.com`
-const R2_PUBLIC_URL = process.env.R2_PUBLIC_URL || `https://pub-${CF_ACCOUNT_ID}.r2.dev`
+const R2_BUCKET = process.env.R2_BUCKET || ''
+const R2_ENDPOINT = process.env.R2_ENDPOINT || (CF_ACCOUNT_ID ? `https://${CF_ACCOUNT_ID}.r2.cloudflarestorage.com` : '')
+const R2_PUBLIC_URL = process.env.R2_PUBLIC_URL || (CF_ACCOUNT_ID ? `https://pub-${CF_ACCOUNT_ID}.r2.dev` : '')
 const AUTO_SYNC_ENABLED = store.get('r2.autoSync', false)
 
 function sha256(data) {

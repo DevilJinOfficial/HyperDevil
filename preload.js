@@ -77,6 +77,9 @@ contextBridge.exposeInMainWorld('api', {
   getR2AutoSync: () => ipcRenderer.invoke('r2:get-auto-sync'),
   setR2AutoSync: (enabled) => ipcRenderer.invoke('r2:set-auto-sync', enabled),
 
+  // Config
+  getDownloadLinks: () => ipcRenderer.invoke('config:download-links'),
+
   // UI Scale
   getScale: () => ipcRenderer.invoke('scale:get'),
   setScale: (v) => ipcRenderer.invoke('scale:set', v),
