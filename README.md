@@ -1,50 +1,58 @@
 <div align="center">
-  <h1>HyperDevil</h1>
-  <p><strong>Windows Boot Configuration Manager for Game Modding</strong></p>
+  <h1>🔥 HyperDevil</h1>
+  <p><strong>Advanced Windows Boot Configuration & Modding Utility</strong></p>
+
   <p>
-    <img src="https://img.shields.io/badge/version-1.0.1-blue" alt="v1.0.1">
+    <img src="https://img.shields.io/badge/version-1.0.1-blue" alt="Version 1.0.1">
     <img src="https://img.shields.io/badge/electron-31-green" alt="Electron 31">
-    <img src="https://img.shields.io/badge/platform-windows-lightgrey" alt="Windows">
+    <img src="https://img.shields.io/badge/platform-Windows-lightgrey" alt="Windows">
   </p>
 </div>
 
-## Overview
+## 📖 Overview
 
-HyperDevil is a Windows desktop application that helps you manage game modding configurations. It provides a unified interface for browsing game bypasses, managing downloads, monitoring system status (Test Signing, Memory Integrity, VBS, Secure Boot), and accessing modding tools.
+**HyperDevil** is a Windows desktop application designed to simplify game modding and system configuration. It provides quick access to hypervisor bypass files, including Voice38 Crack files.
 
-## Features
+## ✨ Features
 
-- **System Dashboard** — Real-time status of Test Signing Mode, Memory Integrity (Core Isolation), Virtualization-Based Security (VBS), Secure Boot, and Virtualization
-- **Bypass Files** — Browse, search, and download game bypass files with automatic SHA-256 verification
-- **Crack Files** — Browse and download crack files organized by game cover
-- **Guides** — Step-by-step guides for system configuration
-- **Tool Downloads** — One-click download of modding tools
-- **Cover Art** — Automatic game cover art resolution
-- **Download Manager** — Progress overlay with speed, ETA, and parallel downloads with range support
+### 🖥️ System Dashboard
+Monitor important Windows security and virtualization settings in real time:
 
-## Installation
+- Test Signing Mode
+- Memory Integrity (Core Isolation)
+- Virtualization-Based Security (VBS)
+- Secure Boot
+- Hardware Virtualization Status
 
-Download the latest installer from the Releases page. The app installs to `%PROGRAMFILES%\HyperDevil` and stores data in `%LOCALAPPDATA%\HyperDevil`.
+### 📦 Bypass Files
+- Browse and search available bypass files
+- Download files with automatic SHA-256 integrity verification
+- Includes support for Voice38 bypass files
 
-### Requirements
+### 🎮 Crack Files
+- Browse downloadable files organized by game
+- Automatic cover art display for supported titles
 
-- Windows 10/11 (64-bit)
+### 📚 Guides
+- Step-by-step tutorials for configuring Windows settings
+- Easy-to-follow setup instructions
 
-## Development
+### 🛠️ Tool Downloads
+- One-click download and access to supported modding tools
 
-## Project Structure
+### 🖼️ Cover Art Integration
+- Automatic retrieval and display of game cover artwork
 
-```
-├── main.js              # Electron main process
-├── preload.js           # Preload script (IPC bridge)
-├── renderer/
-│   ├── index.html       # UI layout and templates
-│   ├── app.js           # Renderer logic
-│   └── style.css        # Styles
-├── assets/              # Icons, scripts, cover cache
-├── tools/               # Bundled manifest tools
-├── games-database.js    # Game database
-└── crack-manifest.json  # Crack files manifest
-```
+### ⬇️ Download Manager
+- Live download progress tracking
+- Download speed and ETA display
+- Parallel downloads
+- Resume and range request support
+
+## 🚀 Installation
+
+Download the latest installer from the **Releases** page.
+<img width="1920" height="1020" alt="image" src="https://github.com/user-attachments/assets/cd3e6d97-24f8-4ead-b0dd-3cb2e6f0445e" />
+<img width="1920" height="1020" alt="image" src="https://github.com/user-attachments/assets/9f6a3cb8-e34f-4cea-8ca9-d29902ae2b83" />
 
 
