@@ -1,5 +1,5 @@
 <div align="center">
-  <h1>🔥 HyperDevil</h1>
+  <h1>🔥 HV Tools</h1>
   <h2>Open Source</h2>
   <p><strong>Advanced Windows Boot Configuration & Modding Utility</strong></p>
 
