@@ -4,7 +4,7 @@
   <p><strong>Advanced Windows Boot Configuration & Modding Utility</strong></p>
 
   <p>
-    <img src="https://img.shields.io/badge/version-1.0.1-blue" alt="Version 1.0.1">
+    <img src="https://img.shields.io/badge/version-1.0.2-blue" alt="Version 1.0.2">
     <img src="https://img.shields.io/badge/electron-31-green" alt="Electron 31">
     <img src="https://img.shields.io/badge/platform-Windows-lightgrey" alt="Windows">
   </p>
