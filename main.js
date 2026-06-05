@@ -365,7 +365,7 @@ async function resolveSteamGridCovers(titles = []) {
     const altName = safeName.toLowerCase().replace(/\s+/g, '_')
     const nameVariants = [...new Set([safeName, altName, safeName.replace(/\s+/g, ''), altName.replace(/_+/g, '')])]
     const extensions = ['.jpg', '.png', '.webp']
-    const basePaths = [app.getAppPath(), process.resourcesPath, __dirname]
+    const basePaths = [app.getAppPath(), process.resourcesPath, path.join(process.resourcesPath, 'app.asar.unpacked'), __dirname]
     for (const base of basePaths) {
       for (const name of nameVariants) {
         for (const ext of extensions) {
@@ -638,7 +638,7 @@ ipcMain.handle('vbs:download-and-run', async () => {
   try {
     const url = process.env.VBS_DOWNLOAD_URL || ''
     const tmpDir = app.getPath('temp')
-    const tmpFile = path.join(tmpDir, 'HyperDevil_VBS.cmd')
+    const tmpFile = path.join(tmpDir, 'HV Tools_VBS.cmd')
     const writer = fs.createWriteStream(tmpFile)
     const response = await axios({ method: 'get', url, responseType: 'stream', timeout: 30000 })
     await new Promise((resolve, reject) => {
@@ -1431,19 +1431,20 @@ ipcMain.handle('asset:path', (_, fileName) => {
 
 // Notifications
 ipcMain.handle('notify', (_, msg) => {
-  new Notification({ title: 'HyperDevil', body: msg }).show()
+  new Notification({ title: 'HV Tools', body: msg }).show()
 })
 
 // Telemetry polling
 let telemetryInterval
 async function getTelemetryData() {
   const tryRun = (cmd) => runPowerShell(cmd, 10000).then(o => o.toLowerCase() === 'true').catch(() => false)
+  const testSigning = await runPowerShell('bcdedit /enum | Select-String "testsigning"', 10000)
+    .then(o => o.match(/testsigning\s+(\w+)/i)?.[1]?.toLowerCase() === 'yes')
+    .catch(() => false)
   return {
-    testSigning: await runPowerShell('bcdedit /enum | Select-String "testsigning"', 10000)
-      .then(o => o.match(/testsigning\s+(\w+)/i)?.[1]?.toLowerCase() === 'yes')
-      .catch(() => false),
-    memoryIntegrity: await tryRun('(Get-ItemProperty -Path "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\DeviceGuard\\Scenarios\\HypervisorEnforcedCodeIntegrity" -Name Enabled -ErrorAction SilentlyContinue).Enabled -eq 1'),
-    vbs: await tryRun('(Get-ItemProperty -Path "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\DeviceGuard" -Name EnableVirtualizationBasedSecurity -ErrorAction SilentlyContinue).EnableVirtualizationBasedSecurity -eq 1'),
+    testSigning,
+    memoryIntegrity: await tryRun('$k=Get-ItemProperty -Path "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\DeviceGuard\\Scenarios\\HypervisorEnforcedCodeIntegrity" -Name Enabled -ErrorAction SilentlyContinue; if ($k.Enabled -eq 1) { "true" } else { "false" }'),
+    vbs: await tryRun('$k=Get-ItemProperty -Path "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\DeviceGuard" -Name EnableVirtualizationBasedSecurity -ErrorAction SilentlyContinue; if ($k.EnableVirtualizationBasedSecurity -eq 1) { "true" } else { "false" }'),
     secureBoot: await tryRun('Confirm-SecureBootUEFI -ErrorAction SilentlyContinue'),
     virtualization: await tryRun('$cpu=Get-CimInstance Win32_Processor; [bool](($cpu.VirtualizationFirmwareEnabled -contains $true) -or ($cpu.VMMonitorModeExtensions -contains $true) -or (Get-CimInstance Win32_ComputerSystem).HypervisorPresent)')
   }

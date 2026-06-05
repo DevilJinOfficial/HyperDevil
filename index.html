@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' https:; img-src 'self' https: data:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com;">
-  <title>HyperDevil</title>
+  <title>HV Tools</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="style.css">
@@ -13,7 +13,7 @@
   <div id="loading-screen">
     <div class="loading-core">
       <div class="loading-logo"></div>
-      <h1>HyperDevil</h1>
+      <h1>HV Tools</h1>
       <p id="loading-copy">Preparing premium workspace...</p>
       <div class="loading-step" id="loading-step">Warming up the engine...</div>
       <div class="loading-bar"><span id="loading-progress"></span></div>
@@ -26,7 +26,7 @@
   <div id="titlebar">
     <div class="titlebar-left">
       <div class="app-logo-small"></div>
-      <span class="titlebar-title">HyperDevil</span>
+      <span class="titlebar-title">HV Tools</span>
       <span class="breadcrumb-sep">›</span>
       <span class="breadcrumb-current" id="breadcrumb">Home</span>
     </div>
@@ -64,126 +64,191 @@
             <div class="home-hero-orbe d3"></div>
           </div>
           <div class="home-hero-particles">
-            <span></span><span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
           </div>
           <div class="home-hero-content">
-            <div class="home-hero-brand">
-              <div class="home-hero-logo">
-                <div class="home-hero-logo-ring"></div>
+            <div class="home-hero-titles">
+              <div class="hero-version-badge">
+                <span class="hero-version-dot"></span>
+                v1.1.0
               </div>
-              <div class="home-hero-titles">
-                <h1 class="home-hero-title">HyperDevil</h1>
-                <p class="home-hero-sub">All-in-One System Toolkit</p>
+              <h1 class="home-hero-title">HV<span class="hero-title-accent">Tools</span></h1>
+              <p class="home-hero-sub">All-in-One System Toolkit</p>
+            </div>
+            <div class="hero-stats-row">
+              <div class="hero-stat-card">
+                <div class="hero-stat-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+                </div>
+                <div class="hero-stat-body">
+                  <span class="hero-stat-num" id="home-hero-games">42+</span>
+                  <span class="hero-stat-lbl">Bypasses</span>
+                </div>
+              </div>
+              <div class="hero-stat-card">
+                <div class="hero-stat-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"/><rect x="9" y="9" width="6" height="6"/></svg>
+                </div>
+                <div class="hero-stat-body">
+                  <span class="hero-stat-num">3</span>
+                  <span class="hero-stat-lbl">Tools</span>
+                </div>
+              </div>
+              <div class="hero-stat-card">
+                <div class="hero-stat-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+                </div>
+                <div class="hero-stat-body">
+                  <span class="hero-stat-num" id="home-hero-uptime">99.9%</span>
+                  <span class="hero-stat-lbl">Uptime</span>
+                </div>
               </div>
             </div>
-            <div class="home-hero-stats">
-              <div class="home-hero-stat">
-                <span class="home-hero-stat-num">1.0.1</span>
-                <span class="home-hero-stat-lbl">Version</span>
+          </div>
+          <div class="hero-scroll-indicator">
+            <span class="hero-scroll-text">Explore Tools</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
+          </div>
+        </div>
+
+        <!-- System Status Premium -->
+        <div class="ss-premium-card">
+          <div class="ss-header">
+            <div class="ss-header-left">
+              <div class="ss-header-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
               </div>
-              <div class="home-hero-stat">
-                <span class="home-hero-stat-num" id="home-hero-games">42+</span>
-                <span class="home-hero-stat-lbl">Bypasses</span>
-              </div>
-              <div class="home-hero-stat">
-                <span class="home-hero-stat-num">3</span>
-                <span class="home-hero-stat-lbl">Tools</span>
+              <div>
+                <span class="ss-header-title">System Status</span>
+                <span class="ss-header-sub">Real-time boot configuration monitor</span>
               </div>
             </div>
-            <div class="home-hero-badges" id="welcome-badges">
-              <span class="badge on" id="welcome-test">TestSign ON</span>
-              <span class="badge off" id="welcome-mem">MemInt OFF</span>
-              <span class="badge off" id="welcome-vbs">VBS OFF</span>
+            <div class="ss-header-right">
+              <div class="ss-live-dot"></div>
+              <span class="ss-live-text">Live</span>
+              <button class="ss-refresh-btn" id="btn-ss-refresh" title="Refresh status">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+                <span>Refresh</span>
+              </button>
+            </div>
+          </div>
+          <div class="ss-divider"></div>
+          <div class="ss-grid">
+            <div class="ss-item" id="ss-test">
+              <div class="ss-item-icon ss-icon-blue">
+                <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor"><path d="M12 8V4a1 1 0 00-2 0v4H6a1 1 0 000 2h4v4a1 1 0 002 0v-4h4a1 1 0 000-2h-4z"/></svg>
+              </div>
+              <div class="ss-item-body">
+                <div class="ss-item-top">
+                  <span class="ss-item-label">Test Signing</span>
+                  <span class="ss-item-value" id="ss-test-value">ON</span>
+                </div>
+                <div class="ss-item-bar">
+                  <span class="ss-item-fill" id="ss-test-fill" style="width:100%"></span>
+                </div>
+              </div>
+              <span class="ss-item-dot on" id="ss-test-dot"></span>
+            </div>
+            <div class="ss-item" id="ss-mem">
+              <div class="ss-item-icon ss-icon-green">
+                <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor"><path d="M10 2L3 5v5c0 4.5 3 8.5 7 9 4-.5 7-4.5 7-9V5l-7-3z"/></svg>
+              </div>
+              <div class="ss-item-body">
+                <div class="ss-item-top">
+                  <span class="ss-item-label">Memory Integrity</span>
+                  <span class="ss-item-value" id="ss-mem-value">OFF</span>
+                </div>
+                <div class="ss-item-bar">
+                  <span class="ss-item-fill" id="ss-mem-fill" style="width:0%"></span>
+                </div>
+              </div>
+              <span class="ss-item-dot off" id="ss-mem-dot"></span>
+            </div>
+            <div class="ss-item" id="ss-vbs">
+              <div class="ss-item-icon ss-icon-red">
+                <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor"><path d="M12 2l4 4-4 4-4-4 4-4zM4 6l4 4-4 4-4-4 4-4z"/></svg>
+              </div>
+              <div class="ss-item-body">
+                <div class="ss-item-top">
+                  <span class="ss-item-label">VBS</span>
+                  <span class="ss-item-value" id="ss-vbs-value">ON</span>
+                </div>
+                <div class="ss-item-bar">
+                  <span class="ss-item-fill" id="ss-vbs-fill" style="width:100%"></span>
+                </div>
+              </div>
+              <span class="ss-item-dot on" id="ss-vbs-dot"></span>
+            </div>
+            <div class="ss-item" id="ss-virt">
+              <div class="ss-item-icon ss-icon-amber">
+                <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor"><path d="M4 2h12a2 2 0 012 2v12a2 2 0 01-2 2H4a2 2 0 01-2-2V4a2 2 0 012-2zm1 3v10h10V5H5z"/></svg>
+              </div>
+              <div class="ss-item-body">
+                <div class="ss-item-top">
+                  <span class="ss-item-label">Virtualization</span>
+                  <span class="ss-item-value" id="ss-virt-value">Enabled</span>
+                </div>
+                <div class="ss-item-bar">
+                  <span class="ss-item-fill" id="ss-virt-fill" style="width:100%"></span>
+                </div>
+              </div>
+              <span class="ss-item-dot on" id="ss-virt-dot"></span>
             </div>
           </div>
         </div>
 
-        <!-- System Metrics -->
-        <div class="home-metrics">
-          <div class="home-metric-card" id="hm-test">
-            <div class="hm-icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="currentColor"><path d="M12 8V4a1 1 0 00-2 0v4H6a1 1 0 000 2h4v4a1 1 0 002 0v-4h4a1 1 0 000-2h-4z"/></svg></div>
-            <div class="hm-body">
-              <span class="hm-label">Test Signing</span>
-              <span class="hm-value on" id="home-test-mini">ON</span>
-            </div>
-            <div class="hm-track"><span class="hm-fill" id="hm-fill-test" style="width:100%"></span></div>
-          </div>
-          <div class="home-metric-card" id="hm-mem">
-            <div class="hm-icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="currentColor"><path d="M10 2L3 5v5c0 4.5 3 8.5 7 9 4-.5 7-4.5 7-9V5l-7-3z"/></svg></div>
-            <div class="hm-body">
-              <span class="hm-label">Mem Integrity</span>
-              <span class="hm-value off" id="home-mem-mini">OFF</span>
-            </div>
-            <div class="hm-track"><span class="hm-fill" id="hm-fill-mem" style="width:0%"></span></div>
-          </div>
-          <div class="home-metric-card" id="hm-vbs">
-            <div class="hm-icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="currentColor"><path d="M12 2l4 4-4 4-4-4 4-4zM4 6l4 4-4 4-4-4 4-4z"/></svg></div>
-            <div class="hm-body">
-              <span class="hm-label">VBS</span>
-              <span class="hm-value on" id="home-vbs-mini">ON</span>
-            </div>
-            <div class="hm-track"><span class="hm-fill" id="hm-fill-vbs" style="width:100%"></span></div>
-          </div>
-          <div class="home-metric-card" id="hm-virt">
-            <div class="hm-icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="currentColor"><path d="M4 2h12a2 2 0 012 2v12a2 2 0 01-2 2H4a2 2 0 01-2-2V4a2 2 0 012-2zm1 3v10h10V5H5z"/></svg></div>
-            <div class="hm-body">
-              <span class="hm-label">Virtualization</span>
-              <span class="hm-value on" id="home-virt-mini">ON</span>
-            </div>
-            <div class="hm-track"><span class="hm-fill" id="hm-fill-virt" style="width:100%"></span></div>
-          </div>
-        </div>
-
-        <!-- Quick Actions -->
+        <!-- Tools Section -->
         <div class="home-section-head">
-          <h3 class="section-title" style="margin:0">Quick Actions</h3>
+          <div class="hsh-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="12" y1="9" x2="12" y2="15"/></svg>
+          </div>
+          <h3 class="section-title">Tools</h3>
           <div class="home-section-line"></div>
         </div>
-        <div class="home-quick-grid">
-          <div class="home-action-card action-card" data-nav="bypass">
-            <div class="hac-glow"></div>
-            <div class="hac-icon-wrap"><div class="hac-icon"><svg width="22" height="22" viewBox="0 0 20 20" fill="currentColor"><path d="M10 2l2 4h5l-4 3 1.5 5L10 11 5.5 14 7 9 3 6h5l2-4z"/></svg></div></div>
-            <span class="hac-title">Bypass Files</span>
-            <span class="hac-sub">Game Bypasses</span>
-          </div>
-          <div class="home-action-card action-card" data-nav="guides">
-            <div class="hac-glow"></div>
-            <div class="hac-icon-wrap"><div class="hac-icon"><svg width="22" height="22" viewBox="0 0 20 20" fill="currentColor"><path d="M4 3h12a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2zm0 4h12M4 11h12M4 15h8"/></svg></div></div>
-            <span class="hac-title">Guides</span>
-            <span class="hac-sub">Step-by-Step Tutorials</span>
-          </div>
-        </div>
-
-        <!-- Community Row -->
-        <div class="home-dual-row">
-          <div class="home-community-col">
-            <div class="home-section-head">
-              <h3 class="section-title" style="margin:0">Community</h3>
-              <div class="home-section-line"></div>
+        <div class="home-tools-grid">
+          <div class="home-tool-card" data-nav="bypass">
+            <div class="htc-bg-glow"></div>
+            <div class="htc-icon-wrap">
+              <div class="htc-icon">
+                <svg width="22" height="22" viewBox="0 0 20 20" fill="currentColor"><path d="M10 2l2 4h5l-4 3 1.5 5L10 11 5.5 14 7 9 3 6h5l2-4z"/></svg>
+              </div>
             </div>
-            <div class="home-community-grid">
-              <div class="home-community-card discord" id="home-discord-card">
-                <div class="hcc-bg"></div>
-                <div class="hcc-content">
-                  <div class="hcc-icon"><img src="../assets/Discord.png" alt="Discord" width="28" height="28"></div>
-                  <div class="hcc-text">
-                    <span class="hcc-title">Discord Server</span>
-                    <span class="hcc-sub">Join 1,000+ members</span>
-                  </div>
-                  <div class="hcc-arrow"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M6 3l5 5-5 5"/></svg></div>
-                </div>
+            <div class="htc-body">
+              <span class="htc-title">Bypass Files</span>
+              <span class="htc-desc">Game bypasses & crack management</span>
+            </div>
+            <div class="htc-arrow">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </div>
+          </div>
+          <div class="home-tool-card" data-nav="guides">
+            <div class="htc-bg-glow"></div>
+            <div class="htc-icon-wrap">
+              <div class="htc-icon">
+                <svg width="22" height="22" viewBox="0 0 20 20" fill="currentColor"><path d="M4 3h12a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2zm0 4h12M4 11h12M4 15h8"/></svg>
               </div>
-              <div class="home-community-card kofi" id="home-kofi-card">
-                <div class="hcc-bg"></div>
-                <div class="hcc-content">
-                  <div class="hcc-icon"><img src="../assets/ko-fi.png" alt="Ko-fi" width="28" height="28"></div>
-                  <div class="hcc-text">
-                    <span class="hcc-title">Buy me a coffee</span>
-                    <span class="hcc-sub">Support on Ko-fi</span>
-                  </div>
-                  <div class="hcc-arrow"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M6 3l5 5-5 5"/></svg></div>
-                </div>
+            </div>
+            <div class="htc-body">
+              <span class="htc-title">Guides</span>
+              <span class="htc-desc">Step-by-step setup tutorials</span>
+            </div>
+            <div class="htc-arrow">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </div>
+          </div>
+          <div class="home-tool-card" data-nav="settings">
+            <div class="htc-bg-glow"></div>
+            <div class="htc-icon-wrap">
+              <div class="htc-icon">
+                <svg width="22" height="22" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/></svg>
               </div>
+            </div>
+            <div class="htc-body">
+              <span class="htc-title">Settings</span>
+              <span class="htc-desc">Preferences & configuration</span>
+            </div>
+            <div class="htc-arrow">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
             </div>
           </div>
         </div>
@@ -226,91 +291,86 @@
 
       <!-- Guides Page -->
       <section id="tab-guides" class="tab-content">
-        <h2>Guides</h2>
-        <p class="subtitle">Setup tutorials and documentation</p>
-
-        <div class="tab-switcher">
-          <button class="tab-pill active" data-guide="proper">Proper Guide</button>
-        </div>
-
-        <div id="guide-proper" class="guide-content active">
-          <div class="glass-card banner-card">
-            <span class="banner-title">DenuvOwO Setup Guide</span>
-            <span class="banner-desc">Follow each step in order from top to bottom</span>
+        <div class="guide-hero">
+          <div class="guide-hero-bg">
+            <div class="guide-hero-orbe"></div>
+            <div class="guide-hero-orbe d2"></div>
           </div>
-
-          <div class="step-list">
-            <div class="step-card glass-card">
-              <span class="step-number">1</span>
-              <div class="step-info">
-                <span class="step-title">Enable Boot Settings</span>
-                <span class="step-subtitle">Test Signing + No Integrity Checks</span>
-              </div>
-            </div>
-            <div class="step-card glass-card">
-              <span class="step-number">2</span>
-              <div class="step-info">
-                <span class="step-title">Disable Memory Integrity</span>
-                <span class="step-subtitle">Settings → Windows Security → Core Isolation → OFF</span>
-              </div>
-            </div>
-            <div class="step-card glass-card">
-              <span class="step-number">3</span>
-              <div class="step-info">
-                <span class="step-title">BIOS Settings</span>
-                <span class="step-subtitle">Secure Boot: OFF | SVM (AMD): ON | VT-x (Intel): ON</span>
-              </div>
-            </div>
-            <div class="step-card glass-card">
-              <span class="step-number">4</span>
-              <div class="step-info">
-                <span class="step-title">Copy DenuvOwO Files</span>
-                <span class="step-subtitle">Paste files into your game installation folder</span>
-              </div>
-            </div>
-            <div class="step-card glass-card">
-              <span class="step-number">5</span>
-              <div class="step-info">
-                <span class="step-title">Restart PC</span>
-                <span class="step-subtitle">Use Start Menu → Power → Restart</span>
-              </div>
-            </div>
-            <div class="step-card glass-card highlighted">
-              <span class="step-number">7</span>
-              <div class="step-info">
-                <span class="step-title">Launch Game</span>
-                <span class="step-subtitle">Run the game EXE as Administrator</span>
-              </div>
-            </div>
+          <div class="guide-hero-particles">
+            <span></span><span></span><span></span><span></span><span></span>
           </div>
-
-          <div class="glass-card important-note">
-            <strong>! Important:</strong> Match your game version with DenuvOwO version
+          <div class="guide-hero-content">
+            <div class="guide-hero-titles">
+              <div class="guide-hero-badge">
+                <svg width="12" height="12" viewBox="0 0 20 20" fill="currentColor"><path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z"/></svg>
+                Setup Tutorial
+              </div>
+              <h1 class="guide-hero-title">DenuvOwO <span class="guide-hero-accent">Setup Guide</span></h1>
+              <p class="guide-hero-sub">Follow each step in order from top to bottom</p>
+            </div>
           </div>
         </div>
+
+        <div class="guide-section-head">
+          <div class="gsh-icon">
+            <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor"><path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"/></svg>
+          </div>
+          <h3 class="section-title">Steps</h3>
+          <div class="guide-section-line"></div>
+        </div>
+
+        <div class="guide-step-list">
+           <div class="guide-step-card">
+             <div class="guide-step-glow"></div>
+             <div class="guide-step-marker">
+               <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+             </div>
+             <div class="guide-step-body">
+               <span class="guide-step-num">Step 01</span>
+               <span class="guide-step-title">Download Bypass Files</span>
+               <span class="guide-step-sub">Browse the Bypass Files tab and download your game</span>
+             </div>
+           </div>
+           <div class="guide-step-card">
+             <div class="guide-step-glow"></div>
+             <div class="guide-step-marker">
+               <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+             </div>
+             <div class="guide-step-body">
+               <span class="guide-step-num">Step 02</span>
+               <span class="guide-step-title">Extract to Game Folder</span>
+               <span class="guide-step-sub">Extract the downloaded files into your game installation directory</span>
+             </div>
+           </div>
+           <div class="guide-step-card highlighted">
+             <div class="guide-step-glow"></div>
+             <div class="guide-step-marker">
+               <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+             </div>
+             <div class="guide-step-body">
+               <span class="guide-step-num">Step 03</span>
+               <span class="guide-step-title">Launch & Play</span>
+               <span class="guide-step-sub">Run the game EXE and enjoy</span>
+             </div>
+           </div>
+         </div>
+
+         <div class="guide-important-card">
+           <div class="guide-important-glow"></div>
+           <div class="guide-important-icon">
+             <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/></svg>
+           </div>
+           <div class="guide-important-body">
+             <span class="guide-important-title">Important</span>
+             <span class="guide-important-text">Always match the bypass file version with your game version</span>
+           </div>
+         </div>
       </section>
 
       <!-- Bypass Files Page -->
       <section id="tab-bypass" class="tab-content">
         <h2>Bypass Files</h2>
         <p class="subtitle">Browse games, open details, and jump to download sources</p>
-
-        <div class="base-game-wrapper">
-          <button class="btn-primary btn-sm" id="btn-base-game">
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0v12M2 6l6 6 6-6"/></svg>
-            Base Game
-          </button>
-          <div id="base-game-dropdown" class="base-game-dropdown hidden">
-            <button class="base-game-option" data-key="cirno">
-              <span class="comp-icon" style="width:28px;height:28px;border-radius:6px"></span>
-              <span>Cirno Downloader</span>
-            </button>
-            <button class="base-game-option" data-key="sigma">
-              <span class="comp-icon sigma" style="width:28px;height:28px;border-radius:6px"></span>
-              <span>Sigma</span>
-            </button>
-          </div>
-        </div>
 
         <div class="tab-switcher db-tab-switcher">
           <button class="tab-pill active" data-db-view="browse">Browse</button>
@@ -340,6 +400,50 @@
               <input id="bypass-search" class="bypass-search" placeholder="Search game..." />
             </div>
 
+          </div>
+        </div>
+
+        <!-- Base Game Tools -->
+        <div class="base-tools-section">
+          <div class="base-tools-head">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <span>Base Game Tools</span>
+          </div>
+          <div class="base-tools-cards">
+            <div class="glass-card tool-card" data-component-key="cirno">
+              <div class="tool-card-bg"></div>
+              <div class="tool-card-top">
+                <div class="tool-card-icon">
+                  <img src="../assets/downloader.png" alt="Cirno" width="28" height="28" style="border-radius:6px">
+                </div>
+                <div class="tool-card-info">
+                  <span class="tool-card-title">Cirno Downloader</span>
+                </div>
+              </div>
+              <div class="tool-card-actions">
+                <span class="badge off" data-download-badge="cirno">Not Downloaded</span>
+                <button class="btn-primary btn-xs" data-download-key="cirno">Download</button>
+                <button class="btn-ghost btn-xs" data-run-key="cirno" style="display:none">Launch</button>
+                <button class="btn-ghost btn-xs" data-remove-key="cirno" style="display:none">Remove</button>
+              </div>
+            </div>
+            <div class="glass-card tool-card" data-component-key="sigma">
+              <div class="tool-card-bg"></div>
+              <div class="tool-card-top">
+                <div class="tool-card-icon sigma">
+                  <img src="../assets/sigma.png" alt="Sigma" width="28" height="28" style="border-radius:6px">
+                </div>
+                <div class="tool-card-info">
+                  <span class="tool-card-title">Sigma</span>
+                </div>
+              </div>
+              <div class="tool-card-actions">
+                <span class="badge off" data-download-badge="sigma">Not Downloaded</span>
+                <button class="btn-primary btn-xs" data-download-key="sigma">Download</button>
+                <button class="btn-ghost btn-xs" data-run-key="sigma" style="display:none">Launch</button>
+                <button class="btn-ghost btn-xs" data-remove-key="sigma" style="display:none">Remove</button>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -539,7 +643,7 @@
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                     </div>
                     <span class="premium-meta-label">Publisher</span>
-                    <span class="premium-meta-value" id="bypass-file-page-publisher">HyperDevil</span>
+                    <span class="premium-meta-value" id="bypass-file-page-publisher">HV Tools</span>
                   </div>
                 </div>
               </div>
@@ -605,7 +709,7 @@
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                     </div>
                     <span class="premium-meta-label">Publisher</span>
-                    <span class="premium-meta-value" id="crack-page-publisher">HyperDevil</span>
+                    <span class="premium-meta-value" id="crack-page-publisher">HV Tools</span>
                   </div>
                 </div>
               </div>
@@ -616,65 +720,224 @@
 
       <!-- Settings Page -->
       <section id="tab-settings" class="tab-content">
-        <h2>Settings</h2>
-
-        <div class="glass-card settings-header-card">
-          <div class="settings-logo"></div>
-          <div>
-            <h3 style="margin:0">HyperDevil <span class="badge neutral" id="settings-version-badge">v...</span></h3>
-            <p class="subtitle" style="margin:4px 0 0">Windows Boot Configuration Manager for Game Modding</p>
+        <div class="settings-premium-stage">
+          <!-- Ambient orbs -->
+          <div class="settings-ambient">
+            <div class="settings-orbe s-o1"></div>
+            <div class="settings-orbe s-o2"></div>
+            <div class="settings-orbe s-o3"></div>
           </div>
-        </div>
 
-        <h3 class="section-title">Application</h3>
-        <div class="glass-card">
-          <div class="settings-row">
-            <div>
-              <span class="comp-title">Installation Directory</span>
-              <span class="comp-desc" id="settings-path">C:\Users\...</span>
-            </div>
-            <button class="btn-ghost btn-sm" id="btn-open-install-dir">Open</button>
-          </div>
-          <div class="settings-row">
-            <div>
-              <span class="comp-title">UI Scale</span>
-              <span class="comp-desc">Adjust the interface size for your display resolution</span>
-            </div>
-            <div class="scale-control">
-              <div class="scale-row">
-                <input type="range" id="scale-slider" min="50" max="200" value="100" class="scale-slider">
-                <input type="number" id="scale-input" min="50" max="200" value="100" class="scale-input">
-                <span class="scale-label" id="scale-value">%</span>
-                <button class="btn-ghost btn-sm" id="btn-reset-scale" title="Reset to 100%">Reset</button>
+          <!-- Header -->
+          <div class="settings-premium-header">
+            <div class="sph-brand">
+              <div class="sph-logo-ring">
+                <div class="settings-logo"></div>
               </div>
-              <div class="scale-marks">
-                <span>50%</span><span>100%</span><span>150%</span><span>200%</span>
+              <div class="sph-text">
+                <h2 class="sph-title">Settings</h2>
+                <p class="sph-sub">Configure your experience</p>
               </div>
             </div>
-          </div>
-        </div>
-
-        <h3 class="section-title">Community</h3>
-        <div class="grid-3">
-          <div class="glass-card settings-community-card" id="settings-card-discord">
-            <img src="../assets/Discord.png" alt="Discord" width="32" height="32">
-            <span class="comp-title">Discord</span>
-            <span class="comp-subtitle">Join our community</span>
-          </div>
-          <div class="glass-card settings-community-card" id="settings-card-donate">
-            <img src="../assets/ko-fi.png" alt="Ko-fi" width="32" height="32">
-            <span class="comp-title">Donate</span>
-            <span class="comp-subtitle">Support development</span>
+            <div class="sph-badge">
+              <span class="badge neutral" id="settings-version-badge">v...</span>
+            </div>
           </div>
 
-        </div>
+          <!-- Application -->
+          <div class="settings-premium-section">
+            <div class="sps-head">
+              <div class="sps-head-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+              </div>
+              <span class="sps-head-title">Application</span>
+              <div class="sps-head-line"></div>
+            </div>
 
-        <h3 class="section-title">Developer</h3>
-        <div class="glass-card" style="text-align:center;padding:30px">
-          <div class="settings-logo" style="margin:0 auto 12px"></div>
-          <span class="comp-title">DevilJin</span>
-          <span class="comp-subtitle">Main Developer</span>
-          <span class="comp-desc">All rights reserved</span>
+            <div class="settings-premium-card">
+              <div class="spc-inner">
+                <!-- Install Dir -->
+                <div class="settings-p-row">
+                  <div class="spr-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+                  </div>
+                  <div class="spr-body">
+                    <span class="spr-label">Installation Directory</span>
+                    <span class="spr-desc" id="settings-path">C:\Users\...</span>
+                  </div>
+                  <button class="btn-ghost btn-sm" id="btn-open-install-dir">Open</button>
+                </div>
+
+                <!-- Divider -->
+                <div class="spc-divider"></div>
+
+                <!-- UI Scale -->
+                <div class="settings-p-row">
+                  <div class="spr-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                  </div>
+                  <div class="spr-body">
+                    <span class="spr-label">UI Scale</span>
+                    <span class="spr-desc">Adjust the interface size for your display</span>
+                  </div>
+                  <div class="scale-control">
+                    <div class="scale-row">
+                      <input type="range" id="scale-slider" min="50" max="200" value="100" class="scale-slider">
+                      <input type="number" id="scale-input" min="50" max="200" value="100" class="scale-input">
+                      <span class="scale-label" id="scale-value">%</span>
+                      <button class="btn-ghost btn-xs" id="btn-reset-scale" title="Reset to 100%">Reset</button>
+                    </div>
+                    <div class="scale-marks">
+                      <span>50%</span><span>100%</span><span>150%</span><span>200%</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Divider -->
+                <div class="spc-divider"></div>
+
+                <!-- Clear Cache -->
+                <div class="settings-p-row">
+                  <div class="spr-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
+                  </div>
+                  <div class="spr-body">
+                    <span class="spr-label">Clear Temp Cache</span>
+                    <span class="spr-desc">Remove cached cover images and temporary files</span>
+                  </div>
+                  <button class="btn-ghost btn-sm" id="btn-clear-temp-cache">Clear</button>
+                </div>
+
+                <!-- Divider -->
+                <div class="spc-divider"></div>
+
+                <!-- Theme -->
+                <div class="settings-p-row">
+                  <div class="spr-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                  </div>
+                  <div class="spr-body">
+                    <span class="spr-label">Theme</span>
+                    <span class="spr-desc">Choose your visual style</span>
+                  </div>
+                  <div class="theme-picker">
+                    <button class="theme-option active" data-theme-val="default">
+                      <span class="theme-swatch default-swatch"></span>
+                      Default
+                    </button>
+                    <button class="theme-option" data-theme-val="pure-dark">
+                      <span class="theme-swatch dark-swatch"></span>
+                      Pure Dark
+                    </button>
+                    <button class="theme-option" data-theme-val="midnight-blue">
+                      <span class="theme-swatch midnight-swatch"></span>
+                      Midnight
+                    </button>
+                    <button class="theme-option" data-theme-val="forest">
+                      <span class="theme-swatch forest-swatch"></span>
+                      Forest
+                    </button>
+                    <button class="theme-option" data-theme-val="amber-glow">
+                      <span class="theme-swatch amber-swatch"></span>
+                      Amber
+                    </button>
+                    <button class="theme-option" data-theme-val="cyberpunk">
+                      <span class="theme-swatch cyber-swatch"></span>
+                      Cyber
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Community -->
+          <div class="settings-premium-section">
+            <div class="sps-head">
+              <div class="sps-head-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              </div>
+              <span class="sps-head-title">Community</span>
+              <div class="sps-head-line"></div>
+            </div>
+
+            <div class="settings-community-grid">
+              <div class="settings-community-card glass-card" id="settings-card-discord">
+                <div class="scc-glow"></div>
+                <div class="scc-icon-wrap">
+                  <img src="../assets/Discord.png" alt="Discord" width="36" height="36">
+                </div>
+                <span class="scc-title">Discord</span>
+                <span class="scc-sub">Join our community</span>
+                <div class="scc-arrow">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><polyline points="12 5 19 12 12 19"/></svg>
+                </div>
+              </div>
+
+              <div class="settings-community-card glass-card" id="settings-card-donate">
+                <div class="scc-glow scc-glow-amber"></div>
+                <div class="scc-icon-wrap scc-icon-wrap-amber">
+                  <img src="../assets/ko-fi.png" alt="Ko-fi" width="36" height="36">
+                </div>
+                <span class="scc-title">Donate</span>
+                <span class="scc-sub">Support development</span>
+                <div class="scc-arrow">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><polyline points="12 5 19 12 12 19"/></svg>
+                </div>
+              </div>
+
+              <div class="settings-community-card glass-card" id="settings-card-github">
+                <div class="scc-glow scc-glow-white"></div>
+                <div class="scc-icon-wrap scc-icon-wrap-white">
+                  <svg width="36" height="36" viewBox="0 0 16 16" fill="currentColor" style="color:var(--text-secondary)"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+                </div>
+                <span class="scc-title">GitHub</span>
+                <span class="scc-sub">Source code &amp; releases</span>
+                <div class="scc-arrow">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><polyline points="12 5 19 12 12 19"/></svg>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Credits -->
+          <div class="settings-premium-section">
+            <div class="sps-head">
+              <div class="sps-head-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+              </div>
+              <span class="sps-head-title">Credits</span>
+              <div class="sps-head-line"></div>
+            </div>
+
+            <div class="settings-credits-grid">
+              <div class="settings-credit-card glass-card">
+                <div class="scredit-glow"></div>
+                <div class="scredit-img-wrap">
+                  <img src="../assets/DenuvOwO.png" alt="DenuvOwO" class="scredit-img">
+                </div>
+                <div class="scredit-body">
+                  <span class="scredit-title">DenuvOwO</span>
+                  <span class="scredit-sub">Bypass Technology &amp; Special Thanks</span>
+                </div>
+                <div class="scredit-tag">Partner</div>
+              </div>
+
+              <div class="settings-credit-card glass-card">
+                <div class="scredit-glow scredit-glow-dev"></div>
+                <div class="scredit-img-wrap scredit-img-wrap-dev">
+                  <div class="scredit-dev-avatar">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                  </div>
+                </div>
+                <div class="scredit-body">
+                  <span class="scredit-title">DevilJin</span>
+                  <span class="scredit-sub">Main Developer</span>
+                </div>
+                <div class="scredit-tag scredit-tag-dev">Developer</div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
     </div>
@@ -765,7 +1028,7 @@
               <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M1 4l7-3 7 3-7 3-7-3zM1 8l7-3 7 3-7 3-7-3zM1 12l7-3 7 3-7 3-7-3z"/></svg>
             </span>
             <span class="bypass-meta-label">Publisher</span>
-            <span class="bypass-meta-value">HyperDevil</span>
+            <span class="bypass-meta-value">HV Tools</span>
           </div>
           <div class="bypass-meta-item">
             <span class="bypass-meta-icon">

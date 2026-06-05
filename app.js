@@ -13,7 +13,7 @@ document.addEventListener('keydown', (e) => {
 
 async function applyBrandImage() {
   try {
-    const candidates = ['HyperDevil.png', 'icon.png', 'icon.svg']
+    const candidates = ['HyperDevil.png', 'HV Tools.png', 'icon.png', 'icon.svg']
     for (const name of candidates) {
       const assetPath = await window.api.getAssetPath(name)
       if (assetPath) {
@@ -133,7 +133,7 @@ const loading = document.getElementById('loading-screen')
 const dots = startLoadingDots(loadingStep, statuses, 180)
 
 const stages = [
-  { pct: 8, message: 'Preparing HyperDevil interface...' },
+  { pct: 8, message: 'Preparing HV Tools interface...' },
   { pct: 20, message: 'Loading premium theme assets...' },
   { pct: 35, message: 'Verifying component downloads...' },
   { pct: 50, message: 'Syncing bypass library...' },
@@ -178,7 +178,8 @@ setTimeout(() => {
 
 const appLinks = {
   discord: 'https://discord.gg/R4TvZ77n56',
-  donate: 'https://ko-fi.com/deviljin0500'
+  donate: 'https://ko-fi.com/deviljin0500',
+  github: 'https://github.com/DevilJinOfficial/HyperDevil'
 }
 
 function smoothScrollTo(element, duration = 300) {
@@ -245,7 +246,7 @@ function setActiveTab(tabName, breadcrumbText) {
 function canAccessTab() { return true }
 
 function setupInteractiveMicroFeedback() {
-  document.querySelectorAll('.btn-primary, .btn-ghost, .titlebar-btn, .tab-pill, .action-card, .home-action-card, .home-community-card, .home-metric-card, .bypass-game-card, .settings-community-card').forEach((btn) => {
+  document.querySelectorAll('.btn-primary, .btn-ghost, .titlebar-btn, .tab-pill, .action-card, .home-action-card, .home-metric-card, .bypass-game-card, .settings-community-card').forEach((btn) => {
     btn.addEventListener('pointerdown', () => {
       btn.style.transform = 'translateY(0) scale(0.97)'
       btn.style.transition = 'transform 0.06s cubic-bezier(0.4, 0, 0.2, 1)'
@@ -283,10 +284,9 @@ document.getElementById('btn-close').onclick = () => window.api.close()
 // ===== Titlebar Buttons =====
 
 document.getElementById('btn-donate').onclick = () => window.api.openExternal('https://ko-fi.com/deviljin0500')
-document.getElementById('home-discord-card')?.addEventListener('click', () => window.api.openExternal(appLinks.discord))
-document.getElementById('home-kofi-card')?.addEventListener('click', () => window.api.openExternal(appLinks.donate))
 document.getElementById('settings-card-discord')?.addEventListener('click', () => window.api.openExternal(appLinks.discord))
 document.getElementById('settings-card-donate')?.addEventListener('click', () => window.api.openExternal(appLinks.donate))
+document.getElementById('settings-card-github')?.addEventListener('click', () => window.api.openExternal(appLinks.github))
 
 // ===== Telemetry Updates =====
 function updateBadge(elementId, state, label) {
@@ -302,45 +302,36 @@ function updateBadge(elementId, state, label) {
   }
 }
 
-function updateWelcomeBadges(data) {
-  const vbsEl = document.getElementById('welcome-vbs')
-  const testEl = document.getElementById('welcome-test')
-  const memEl = document.getElementById('welcome-mem')
-  if (vbsEl) { vbsEl.textContent = `VBS ${data.vbs ? 'ON' : 'OFF'}`; vbsEl.className = 'badge ' + (data.vbs ? 'on' : 'off') }
-  if (testEl) { testEl.textContent = `TestSign ${data.testSigning ? 'ON' : 'OFF'}`; testEl.className = 'badge ' + (data.testSigning ? 'on' : 'off') }
-  if (memEl) { memEl.textContent = `MemInt ${data.memoryIntegrity ? 'ON' : 'OFF'}`; memEl.className = 'badge ' + (data.memoryIntegrity ? 'on' : 'off') }
-}
-
 let virtNotified = false
 
-function updateMiniMetric(id, value, on) {
+function updateSsValue(id, text) {
   const el = document.getElementById(id)
-  if (!el) return
-  el.textContent = value
-  el.className = 'hm-value ' + (on ? 'on' : 'off')
+  if (el) el.textContent = text
 }
 
-function updateHmFill(id, on) {
+function updateSsFill(id, on) {
   const el = document.getElementById(id)
   if (el) el.style.width = on ? '100%' : '0%'
 }
 
-window.api.onTelemetryUpdate(data => {
-  updateBadge('home-vbs', data.vbs)
-  updateBadge('home-test', data.testSigning)
-  updateBadge('home-mem', !data.memoryIntegrity, data.memoryIntegrity ? 'ON' : 'OFF')
-  updateBadge('home-virt', data.virtualization, data.virtualization ? 'Enabled' : 'Disabled')
-  updateMiniMetric('home-vbs-mini', data.vbs ? 'ON' : 'OFF', data.vbs)
-  updateMiniMetric('home-test-mini', data.testSigning ? 'ON' : 'OFF', data.testSigning)
-  updateMiniMetric('home-mem-mini', data.memoryIntegrity ? 'ON' : 'OFF', !data.memoryIntegrity)
-  updateMiniMetric('home-virt-mini', data.virtualization ? 'ON' : 'OFF', data.virtualization)
-  updateHmFill('hm-fill-vbs', data.vbs)
-  updateHmFill('hm-fill-test', data.testSigning)
-  updateHmFill('hm-fill-mem', !data.memoryIntegrity)
-  updateHmFill('hm-fill-virt', data.virtualization)
+function updateSsDot(id, on) {
+  const el = document.getElementById(id)
+  if (el) { el.className = 'ss-item-dot ' + (on ? 'on' : 'off') }
+}
 
-  const dotMap = { 'hsi-vbs-dot': data.vbs, 'hsi-test-dot': data.testSigning, 'hsi-mem-dot': !data.memoryIntegrity, 'hsi-virt-dot': data.virtualization }
-  Object.entries(dotMap).forEach(([id, on]) => { const d = document.getElementById(id); if (d) d.className = 'hsi-dot ' + (on ? 'on' : 'off') })
+window.api.onTelemetryUpdate(data => {
+  updateSsValue('ss-test-value', data.testSigning ? 'ON' : 'OFF')
+  updateSsValue('ss-mem-value', data.memoryIntegrity ? 'ON' : 'OFF')
+  updateSsValue('ss-vbs-value', data.vbs ? 'ON' : 'OFF')
+  updateSsValue('ss-virt-value', data.virtualization ? 'Enabled' : 'Disabled')
+  updateSsFill('ss-test-fill', data.testSigning)
+  updateSsFill('ss-mem-fill', !data.memoryIntegrity)
+  updateSsFill('ss-vbs-fill', data.vbs)
+  updateSsFill('ss-virt-fill', data.virtualization)
+  updateSsDot('ss-test-dot', data.testSigning)
+  updateSsDot('ss-mem-dot', !data.memoryIntegrity)
+  updateSsDot('ss-vbs-dot', data.vbs)
+  updateSsDot('ss-virt-dot', data.virtualization)
 
   if (!data.virtualization && !virtNotified) {
     virtNotified = true
@@ -348,8 +339,6 @@ window.api.onTelemetryUpdate(data => {
     document.getElementById('modal-subtitle').textContent = 'Virtualization is disabled. Please enable it in your BIOS settings (SVM for AMD / VT-x for Intel) and restart your PC.'
     document.getElementById('modal-overlay').classList.remove('modal-hidden')
   }
-
-  updateWelcomeBadges(data)
 
   updateBadge('hv-mem', !data.memoryIntegrity, data.memoryIntegrity ? 'ON' : 'OFF')
   updateBadge('hv-virt', data.virtualization)
@@ -415,13 +404,12 @@ document.getElementById('btn-fix-all')?.addEventListener('click', async () => {
     await window.api.setTestSigning(true)
     await window.api.setMemoryIntegrity(false)
     const data = { vbs:true, testSigning:true, memoryIntegrity:false, virtualization:true }
-    updateBadge('home-test', data.testSigning)
-    updateBadge('home-mem', !data.memoryIntegrity, 'OFF')
-    updateMiniMetric('home-test-mini', 'ON', true)
-    updateMiniMetric('home-mem-mini', 'OFF', false)
-    updateHmFill('hm-fill-test', true)
-    updateHmFill('hm-fill-mem', true)
-    ;['hsi-test-dot','hsi-mem-dot'].forEach(id => { const d=document.getElementById(id); if(d) d.className='hsi-dot on' })
+    updateSsValue('ss-test-value', 'ON')
+    updateSsValue('ss-mem-value', 'OFF')
+    updateSsFill('ss-test-fill', true)
+    updateSsFill('ss-mem-fill', true)
+    updateSsDot('ss-test-dot', true)
+    updateSsDot('ss-mem-dot', true)
     addActivity('boot-activity', 'Fix All: Applied boot settings')
     showToast('All settings applied successfully')
   } catch (e) { showToast('Failed: ' + e.message) }
@@ -435,13 +423,12 @@ document.getElementById('btn-revert-all-home')?.addEventListener('click', async 
   try {
     await window.api.setTestSigning(false)
     await window.api.setMemoryIntegrity(true)
-    updateBadge('home-test', false)
-    updateBadge('home-mem', false, 'ON')
-    updateMiniMetric('home-test-mini', 'OFF', false)
-    updateMiniMetric('home-mem-mini', 'ON', true)
-    updateHmFill('hm-fill-test', false)
-    updateHmFill('hm-fill-mem', false)
-    ;['hsi-test-dot','hsi-mem-dot'].forEach(id => { const d=document.getElementById(id); if(d) d.className='hsi-dot off' })
+    updateSsValue('ss-test-value', 'OFF')
+    updateSsValue('ss-mem-value', 'ON')
+    updateSsFill('ss-test-fill', false)
+    updateSsFill('ss-mem-fill', false)
+    updateSsDot('ss-test-dot', false)
+    updateSsDot('ss-mem-dot', false)
     addActivity('boot-activity', 'Revert All: Restored safer defaults')
     showToast('Reverted all boot settings')
   } catch (e) {
@@ -460,20 +447,18 @@ document.getElementById('btn-refresh-all-home')?.addEventListener('click', async
       window.api.getVirtualization()
     ])
     const data = { testSigning: test, memoryIntegrity: mem, vbs, virtualization: virt }
-    updateBadge('home-test', data.testSigning)
-    updateBadge('home-mem', !data.memoryIntegrity, data.memoryIntegrity ? 'ON' : 'OFF')
-    updateBadge('home-vbs', data.vbs)
-    updateBadge('home-virt', data.virtualization, data.virtualization ? 'Enabled' : 'Disabled')
-    updateMiniMetric('home-vbs-mini', data.vbs ? 'ON' : 'OFF', data.vbs)
-    updateMiniMetric('home-test-mini', data.testSigning ? 'ON' : 'OFF', data.testSigning)
-    updateMiniMetric('home-mem-mini', data.memoryIntegrity ? 'ON' : 'OFF', !data.memoryIntegrity)
-    updateMiniMetric('home-virt-mini', data.virtualization ? 'ON' : 'OFF', data.virtualization)
-    updateHmFill('hm-fill-vbs', data.vbs)
-    updateHmFill('hm-fill-test', data.testSigning)
-    updateHmFill('hm-fill-mem', !data.memoryIntegrity)
-    updateHmFill('hm-fill-virt', data.virtualization)
-    const dotMap2 = { 'hsi-vbs-dot': data.vbs, 'hsi-test-dot': data.testSigning, 'hsi-mem-dot': !data.memoryIntegrity, 'hsi-virt-dot': data.virtualization }
-    Object.entries(dotMap2).forEach(([id, on]) => { const d = document.getElementById(id); if (d) d.className = 'hsi-dot ' + (on ? 'on' : 'off') })
+    updateSsValue('ss-test-value', data.testSigning ? 'ON' : 'OFF')
+    updateSsValue('ss-mem-value', data.memoryIntegrity ? 'ON' : 'OFF')
+    updateSsValue('ss-vbs-value', data.vbs ? 'ON' : 'OFF')
+    updateSsValue('ss-virt-value', data.virtualization ? 'Enabled' : 'Disabled')
+    updateSsFill('ss-test-fill', data.testSigning)
+    updateSsFill('ss-mem-fill', !data.memoryIntegrity)
+    updateSsFill('ss-vbs-fill', data.vbs)
+    updateSsFill('ss-virt-fill', data.virtualization)
+    updateSsDot('ss-test-dot', data.testSigning)
+    updateSsDot('ss-mem-dot', !data.memoryIntegrity)
+    updateSsDot('ss-vbs-dot', data.vbs)
+    updateSsDot('ss-virt-dot', data.virtualization)
     showToast('System status refreshed')
   } catch (e) {
     showToast('Refresh failed: ' + e.message)
@@ -487,6 +472,39 @@ document.getElementById('btn-refresh-status')?.addEventListener('click', () => {
   const btn = document.getElementById('btn-refresh-status')
   btn.textContent = 'Refreshing...'
   setTimeout(() => { btn.textContent = 'Refresh'; showToast('Status refreshed') }, 1000)
+})
+
+document.getElementById('btn-ss-refresh')?.addEventListener('click', async () => {
+  const btn = document.getElementById('btn-ss-refresh')
+  const svg = btn?.querySelector('svg')
+  if (svg) svg.style.transition = 'none'
+  if (btn) btn.disabled = true
+  try {
+    const [test, mem, vbs, virt] = await Promise.all([
+      window.api.getTestSigning(),
+      window.api.getMemoryIntegrity(),
+      window.api.getVBS(),
+      window.api.getVirtualization()
+    ])
+    const data = { testSigning: test, memoryIntegrity: mem, vbs, virtualization: virt }
+    updateSsValue('ss-test-value', data.testSigning ? 'ON' : 'OFF')
+    updateSsValue('ss-mem-value', data.memoryIntegrity ? 'ON' : 'OFF')
+    updateSsValue('ss-vbs-value', data.vbs ? 'ON' : 'OFF')
+    updateSsValue('ss-virt-value', data.virtualization ? 'Enabled' : 'Disabled')
+    updateSsFill('ss-test-fill', data.testSigning)
+    updateSsFill('ss-mem-fill', !data.memoryIntegrity)
+    updateSsFill('ss-vbs-fill', data.vbs)
+    updateSsFill('ss-virt-fill', data.virtualization)
+    updateSsDot('ss-test-dot', data.testSigning)
+    updateSsDot('ss-mem-dot', !data.memoryIntegrity)
+    updateSsDot('ss-vbs-dot', data.vbs)
+    updateSsDot('ss-virt-dot', data.virtualization)
+    showToast('System status refreshed')
+  } catch (e) {
+    showToast('Refresh failed: ' + e.message)
+  } finally {
+    if (btn) btn.disabled = false
+  }
 })
 
 // ===== Open Exe Folder =====
@@ -547,51 +565,6 @@ document.getElementById('btn-restore-defaults')?.addEventListener('click', () =>
   showToast('Defaults restored')
 })
 
-
-// ===== Base Game Dropdown =====
-const baseGameBtn = document.getElementById('btn-base-game')
-const baseGameDropdown = document.getElementById('base-game-dropdown')
-
-baseGameBtn?.addEventListener('click', (e) => {
-  e.stopPropagation()
-  baseGameDropdown?.classList.toggle('hidden')
-})
-
-document.querySelectorAll('.base-game-option').forEach(btn => {
-  btn.addEventListener('click', async () => {
-    baseGameDropdown?.classList.add('hidden')
-    const key = btn.dataset.key
-    const item = downloadLinks[key]
-    if (!item) return
-    if (downloadState.busy) {
-      showToast('Wait for current download to finish')
-      return
-    }
-    downloadState.busy = true
-    showDownloadProgress(item.fileName, false)
-    try {
-      const res = await window.api.startDownload(item.url, item.fileName)
-      if (!res?.success) {
-        hideDownloadProgress()
-        if (res?.canceled) {
-          showToast('Download canceled', 'warning')
-        } else {
-          showToast(`Download failed: ${res?.error || item.fileName}`)
-        }
-      } else {
-        downloadState.items[key] = { downloaded: true, path: res.downloadPath || '' }
-        updateComponentDownloadedUI(key, true)
-        addActivity('clean-files-activity', `${item.fileName} downloaded`)
-      }
-    } finally {
-      downloadState.busy = false
-    }
-  })
-})
-
-document.addEventListener('click', () => {
-  baseGameDropdown?.classList.add('hidden')
-})
 
 // ===== Bypass Launcher =====
 const bypassSearchInput = document.getElementById('bypass-search')
@@ -677,7 +650,7 @@ function toCrackGameDetail(game) {
     description: game.description,
     image: game.image,
     developer: 'Community Source',
-    publisher: 'HyperDevil',
+    publisher: 'HV Tools',
     genre: 'Crack Files',
     status: 'Ready',
     available: true,
@@ -764,12 +737,12 @@ function openCrackFileDetail(game) {
     }
   }
 
-  if (crackPageDescription) {
-    const desc =
-      String(game.description || `${game.title || 'Game'} technical brief for crack delivery.`)
-        .trim()
-    crackPageDescription.innerHTML = desc ? desc.replace(/\n/g, '<br>') : ''
-  }
+   if (crackPageDescription) {
+     const desc =
+       String(game.description || `${game.title || 'Game'} technical brief for crack delivery.`)
+         .trim()
+     crackPageDescription.innerHTML = formatPremiumDescription(desc)
+   }
 
   if (crackPageImage) {
     crackPageImage.onerror = () => {
@@ -789,7 +762,7 @@ function openCrackFileDetail(game) {
 
   if (crackPageFormat) crackPageFormat.textContent = game.format || 'Archive'
   if (crackPageType) crackPageType.textContent = 'Crack Files'
-  if (crackPagePublisher) crackPagePublisher.textContent = game.publisher || 'HyperDevil'
+  if (crackPagePublisher) crackPagePublisher.textContent = game.publisher || 'HV Tools'
 
   const label = `Crack • ${game.title || 'Untitled'}`
   setActiveTab('crack-detail', label)
@@ -838,6 +811,7 @@ function closeBypassFileDetail() {
 }
 
 bypassFileBackBtn?.addEventListener('click', closeBypassFileDetail)
+
 bypassFilePageImage?.addEventListener('error', function () {
   const title = bypassFilePageTitle?.textContent || 'Game'
   this.src = createBypassImage(title)
@@ -855,7 +829,8 @@ bypassFileDownloadBtn?.addEventListener('click', async () => {
   }
 
   const ext = activeBypassGame.url.match(/\.([a-z0-9]+)(?:\?|$)/i)?.[1] || 'zip'
-  const fileName = `${activeBypassGame.title.replace(/[^a-z0-9]/gi, '_')}-bypass.${ext}`
+  const buildTag = activeBypassGame.buildid && activeBypassGame.buildid !== 'N/A' && activeBypassGame.buildid !== 'Unknown' ? `_Build${activeBypassGame.buildid}` : ''
+  const fileName = `${activeBypassGame.title.replace(/[^a-z0-9]/gi, '_')}${buildTag}-bypass.${ext}`
   startBypassDownload(activeBypassGame.url, fileName, activeBypassGame.title)
 })
 crackDetailDownloadBtn?.addEventListener('click', async () => {
@@ -1045,6 +1020,7 @@ function createBypassImage(title) {
 function isPlaceholderCover(image, title) {
   if (!image) return true
   const normalized = String(image || '').trim()
+  if (normalized.includes('i.postimg.cc')) return true
   return normalized === createBypassImage(title)
 }
 
@@ -1118,7 +1094,7 @@ function toBypassGame(entry, order) {
     note: noteMatch ? noteMatch[1].trim() : '',
     image: String(entry?.image || '').trim() || createBypassImage(title),
     developer: String(entry?.developer || 'Community Source').trim(),
-    publisher: String(entry?.publisher || 'HyperDevil').trim(),
+    publisher: String(entry?.publisher || 'HV Tools').trim(),
     genre,
     status: String(entry?.status || (available ? 'Available' : 'Available')).trim(),
     versions,
@@ -1322,7 +1298,7 @@ function staggerCards(container, delay = 30) {
 
 function animateTabEntrance(tab) {
   if (!tab) return
-  const cards = tab.querySelectorAll('.glass-card, .action-card, .home-action-card, .home-community-card, .home-metric-card, .status-card, .component-card, .step-card, .bypass-game-card')
+  const cards = tab.querySelectorAll('.glass-card, .action-card, .home-action-card, .home-metric-card, .status-card, .component-card, .step-card, .bypass-game-card')
   cards.forEach((card, i) => {
     card.style.opacity = '0'
     card.style.transform = 'translateY(16px)'
@@ -1520,7 +1496,7 @@ function openBypassGame(game) {
     bypassPageImage.alt = `${game.title} cover`
   }
   if (bypassPageDev) bypassPageDev.textContent = game.developer || 'Community Source'
-  if (bypassPagePub) bypassPagePub.textContent = game.publisher || 'HyperDevil'
+  if (bypassPagePub) bypassPagePub.textContent = game.publisher || 'HV Tools'
   if (bypassPageGenre) bypassPageGenre.textContent = game.genre || ''
   if (bypassPagePill) {
     bypassPagePill.textContent = game.available ? 'Ready to download' : 'Available'
@@ -1540,27 +1516,70 @@ function openBypassGame(game) {
   setActiveTab('bypass-detail', game.title)
 }
 
-function openBypassFileDetail(game) {
-  if (!game) return
-  activeBypassGame = game
+function formatPremiumDescription(text) {
+  if (!text) return ''
   
-  // Populate bypass file detail page
-  if (bypassFilePageTitle) bypassFilePageTitle.textContent = String(game.title || 'Untitled')
+  const plainText = String(text)
+  const lines = plainText.split('\n')
+  let html = ''
+  let inHighlight = false
   
-  // Display build badge if buildid exists
-  if (bypassFilePageBuildBadge) {
-    if (game.buildid && game.buildid !== 'N/A' && game.buildid !== 'Unknown') {
-      bypassFilePageBuildBadge.textContent = `BUILD ${String(game.buildid).toUpperCase()}`
-      bypassFilePageBuildBadge.style.display = 'inline-flex'
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i].trim()
+    if (!line) continue
+    
+    // Check for special keywords that indicate important info
+    const isKeyword = /^(note|important|instructions?|requirements?|password|url|link|build|format|publisher|extract|folder|file|open|see|included|encrypted|\.nfo):/i.test(line)
+    const isAllCaps = /^[A-Z\s\-\.,:0-9]+$/.test(line) && line.length > 3
+    const isParenthetical = line.startsWith('(') && line.endsWith(')')
+    
+    if (isKeyword) {
+      // Parse key: value format
+      const [key, ...rest] = line.split(':')
+      const value = rest.join(':').trim()
+      html += `<div class="premium-description-highlight important"><strong>${escapeHtml(key)}:</strong> ${escapeHtml(value)}</div>`
+    } else if (isAllCaps && line.length < 80) {
+      // Highlight all-caps titles/headers
+      html += `<p style="color: var(--accent-soft); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; font-size: 13px; margin-top: 8px;">${escapeHtml(line)}</p>`
+    } else if (isParenthetical) {
+      // Parenthetical notes
+      html += `<p style="color: var(--text-secondary); font-size: 13.5px; font-style: italic; opacity: 0.85;">${escapeHtml(line)}</p>`
     } else {
-      bypassFilePageBuildBadge.style.display = 'none'
+      // Regular paragraph text
+      html += `<p>${escapeHtml(line)}</p>`
     }
   }
   
-  if (bypassFilePageDescription) {
-    const desc = String(game.description || `${game.title || 'Game'} build details and resources.`).trim()
-    bypassFilePageDescription.innerHTML = desc ? desc.replace(/\n/g, '<br>') : ''
-  }
+  return html || ''
+}
+
+function escapeHtml(text) {
+  const div = document.createElement('div')
+  div.textContent = text
+  return div.innerHTML
+}
+
+function openBypassFileDetail(game) {
+   if (!game) return
+   activeBypassGame = game
+   
+   // Populate bypass file detail page
+   if (bypassFilePageTitle) bypassFilePageTitle.textContent = String(game.title || 'Untitled')
+   
+   // Display build badge if buildid exists
+   if (bypassFilePageBuildBadge) {
+     if (game.buildid && game.buildid !== 'N/A' && game.buildid !== 'Unknown') {
+       bypassFilePageBuildBadge.textContent = `BUILD ${String(game.buildid).toUpperCase()}`
+       bypassFilePageBuildBadge.style.display = 'inline-flex'
+     } else {
+       bypassFilePageBuildBadge.style.display = 'none'
+     }
+   }
+   
+   if (bypassFilePageDescription) {
+     const desc = String(game.description || `${game.title || 'Game'} build details and resources.`).trim()
+     bypassFilePageDescription.innerHTML = formatPremiumDescription(desc)
+   }
   
   if (bypassFilePageImage) {
     bypassFilePageImage.onerror = () => {
@@ -1579,7 +1598,7 @@ function openBypassFileDetail(game) {
   }
   
   if (bypassFilePageFormat) bypassFilePageFormat.textContent = game.format || 'Archive'
-  if (bypassFilePagePublisher) bypassFilePagePublisher.textContent = game.publisher || 'HyperDevil'
+  if (bypassFilePagePublisher) bypassFilePagePublisher.textContent = game.publisher || 'HV Tools'
   if (bypassFilePageBuildid) bypassFilePageBuildid.textContent = game.buildid || 'Unknown'
   
   const label = `Bypass • ${game.title || 'Untitled'}`
@@ -1662,8 +1681,8 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape') hideBypass
 // modal download/open-folder wiring
 bypassModalDownloadBtn?.addEventListener('click', () => {
   if (!activeBypassGame) return
-  // derive filename from game title but don't show it in UI
-  const safeName = (activeBypassGame.title || 'bypass').replace(/[^a-z0-9\-_. ]/ig, '_') + '.zip'
+  const buildTag = activeBypassGame.buildid && activeBypassGame.buildid !== 'N/A' && activeBypassGame.buildid !== 'Unknown' ? `_Build${activeBypassGame.buildid}` : ''
+  const safeName = (activeBypassGame.title || 'bypass').replace(/[^a-z0-9\-_. ]/ig, '_') + `${buildTag}.zip`
   startBypassDownload(activeBypassGame.url, safeName, activeBypassGame.title)
 })
 bypassModalOpenFolderBtn?.addEventListener('click', async () => {
@@ -1847,7 +1866,7 @@ document.getElementById('crack-sort')?.addEventListener('change', (e) => {
 
 document.getElementById('btn-bypass-share')?.addEventListener('click', () => {
   if (!activeBypassGame) return
-  const text = `Check out ${activeBypassGame.title} bypass on HyperDevil`
+  const text = `Check out ${activeBypassGame.title} bypass on HV Tools`
   navigator.clipboard?.writeText(text).catch(() => {})
   showToast('Copied to clipboard')
 })
@@ -1901,7 +1920,8 @@ bypassDownloadBtn?.addEventListener('click', () => {
   }
   if (activeBypassGame.url) {
     const ext = activeBypassGame.url.match(/\.([a-z0-9]+)(?:\?|$)/i)?.[1] || 'zip'
-    startBypassDownload(activeBypassGame.url, `${activeBypassGame.title.replace(/[^a-z0-9]/gi, '_')}.${ext}`, activeBypassGame.title)
+    const buildTag = activeBypassGame.buildid && activeBypassGame.buildid !== 'N/A' && activeBypassGame.buildid !== 'Unknown' ? `_Build${activeBypassGame.buildid}` : ''
+    startBypassDownload(activeBypassGame.url, `${activeBypassGame.title.replace(/[^a-z0-9]/gi, '_')}${buildTag}.${ext}`, activeBypassGame.title)
     return
   }
   showToast('No bypass version available for this game.', 'warning')
@@ -1933,7 +1953,8 @@ bypassVersionNextBtn?.addEventListener('click', () => {
       return
     }
     const ext = dlUrl.match(/\.([a-z0-9]+)(?:\?|$)/i)?.[1] || 'zip'
-    const fileName = `${activeBypassGame.title.replace(/[^a-z0-9]/gi, '_')}-${selectedBypassVersion.replace(/[^a-z0-9]/gi, '_')}.${ext}`
+    const buildTag = activeBypassGame.buildid && activeBypassGame.buildid !== 'N/A' && activeBypassGame.buildid !== 'Unknown' ? `_Build${activeBypassGame.buildid}` : ''
+    const fileName = `${activeBypassGame.title.replace(/[^a-z0-9]/gi, '_')}${buildTag}-${selectedBypassVersion.replace(/[^a-z0-9]/gi, '_')}.${ext}`
     bypassVersionOverlay?.classList.add('modal-hidden')
     startBypassDownload(dlUrl, fileName, activeBypassGame.title)
   } else {
@@ -2107,6 +2128,10 @@ async function startBypassDownload(url, fileName, gameTitle) {
   downloadState.busy = true
   if (bypassDownloadBtn) bypassDownloadBtn.disabled = true
   showDownloadProgress(gameTitle || fileName, true)
+  const buildId = activeBypassGame?.buildid
+  if (buildId && buildId !== 'N/A' && buildId !== 'Unknown' && downloadSubtitle) {
+    downloadSubtitle.textContent = `Build ${buildId}`
+  }
   try {
     const res = await window.api.downloadBypass(url, fileName, activeBypassGame?.checksum)
     if (!res?.success) {
@@ -2231,7 +2256,7 @@ document.querySelectorAll('[data-remove-key]').forEach((btn) => {
 })
 
 function updateComponentDownloadedUI(key, downloaded) {
-  const card = document.querySelector(`.component-card[data-component-key="${key}"]`)
+  const card = document.querySelector(`.component-card[data-component-key="${key}"], .tool-card[data-component-key="${key}"]`)
   const badge = card?.querySelector('[data-download-badge]')
   if (!badge) return
   badge.className = `badge ${downloaded ? 'on' : 'off'}`
@@ -2385,15 +2410,34 @@ window.api.getDownloadDir().then((downloadDir) => {
   if (resetBtn) resetBtn.addEventListener('click', () => apply(100))
 })()
 
+document.getElementById('btn-clear-temp-cache')?.addEventListener('click', async () => {
+  const btn = document.getElementById('btn-clear-temp-cache')
+  btn.disabled = true
+  btn.textContent = 'Clearing...'
+  try {
+    const result = await window.api.clearTempCache()
+    if (result?.success) {
+      showToast('Temp cache cleared: ' + (result.details || 'OK'), 'success')
+    } else {
+      showToast('Failed: ' + (result?.error || 'Unknown error'), 'error')
+    }
+  } catch (err) {
+    showToast('Failed: ' + err.message, 'error')
+  } finally {
+    btn.disabled = false
+    btn.textContent = 'Clear Cache'
+  }
+})
+
 async function initAppVersion() {
-  const version = '1.0.1'
+  const version = '1.1.0'
   const versionBadge = document.getElementById('app-version-badge')
   if (versionBadge) versionBadge.textContent = `v${version}`
   const sidebarVersionText = document.getElementById('sidebar-version-text')
-  if (sidebarVersionText) sidebarVersionText.textContent = `HyperDevil - Beta | Version ${version}`
+  if (sidebarVersionText) sidebarVersionText.textContent = `HV Tools - Beta | Version ${version}`
   const settingsVersionBadge = document.getElementById('settings-version-badge')
   if (settingsVersionBadge) settingsVersionBadge.textContent = `v${version}`
-  document.title = `HyperDevil v${version}`
+  document.title = `HV Tools v${version}`
 
   try {
     const result = await window.api.getUpdateInfo()
@@ -2434,7 +2478,7 @@ function showForceExpiry(localOnly, expiryDate) {
             <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
           </svg>
         </div>
-        <h2 style="margin:0 0 6px;font-size:22px;font-weight:800;color:var(--text-primary);letter-spacing:-0.3px">HyperDevil Expired</h2>
+        <h2 style="margin:0 0 6px;font-size:22px;font-weight:800;color:var(--text-primary);letter-spacing:-0.3px">HV Tools Expired</h2>
         <p style="margin:0 0 20px;color:var(--text-tertiary);font-size:14px;line-height:1.5">This version expired on <strong style="color:var(--text-secondary);font-weight:700">${dateStr}</strong>.<br>Please update to the latest version.</p>
         <div style="display:inline-flex;align-items:center;gap:8px;padding:6px 14px 6px 10px;border-radius:8px;background:${localOnly ? 'rgba(255,183,77,0.08)' : 'rgba(74,222,128,0.08)'};border:1px solid ${localOnly ? 'rgba(255,183,77,0.15)' : 'rgba(74,222,128,0.15)'};margin-bottom:24px">
           <span style="width:6px;height:6px;border-radius:50%;background:${localOnly ? '#ffb74d' : '#4ade80'};box-shadow:0 0 6px ${localOnly ? 'rgba(255,183,77,0.4)' : 'rgba(74,222,128,0.4)'}"></span>
@@ -2442,7 +2486,7 @@ function showForceExpiry(localOnly, expiryDate) {
         </div>
         <div style="display:flex;gap:10px;justify-content:center">
           <button onclick="window.api.close()" style="padding:12px 32px;background:linear-gradient(135deg,#f05050,#c03030);color:white;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;transition:all .15s ease;box-shadow:0 2px 12px rgba(240,80,80,0.25)">Close App</button>
-          <button onclick="window.api.openExternal('https://github.com/DevilJinOfficial/HyperDevil')" style="padding:12px 28px;background:rgba(255,255,255,0.04);color:var(--text-secondary);border:1px solid var(--border-soft);border-radius:10px;font-size:14px;font-weight:600;cursor:transition;all .15s ease">Get Update</button>
+          <button onclick="window.api.openExternal('https://github.com/DevilJinOfficial/HyperDevil')" style="padding:12px 28px;background:rgba(255,255,255,0.04);color:var(--text-secondary);border:1px solid var(--border-soft);border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;transition:all .15s ease">Get Update</button>
         </div>
       </div>
     </div>
@@ -2586,3 +2630,20 @@ document.addEventListener('keydown', (e) => {
     showToast('Ctrl+Tab: Cycle tabs | Ctrl+1-7: Jump to tab | Esc: Close panels | Ctrl+Shift+H: Home', 'info')
   }
 })
+
+// ===== Theme Switcher =====
+;(function initTheme() {
+  const STORAGE_KEY = 'hyperdevil-theme'
+  const saved = localStorage.getItem(STORAGE_KEY) || 'default'
+  document.documentElement.setAttribute('data-theme', saved)
+  document.querySelectorAll('.theme-option').forEach((btn) => {
+    const val = btn.dataset.themeVal
+    if (val === saved) btn.classList.add('active')
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.theme-option').forEach((b) => b.classList.remove('active'))
+      btn.classList.add('active')
+      document.documentElement.setAttribute('data-theme', val)
+      localStorage.setItem(STORAGE_KEY, val)
+    })
+  })
+})()
